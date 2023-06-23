@@ -29,15 +29,24 @@ export const styles = StyleSheet.create({
     boton: {
         height: 80,
         width: 80,
-        backgroundColor: '#9B9B9B',
         borderRadius: 100,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginHorizontal: 10
+    },
+    grisClaro: {
+        backgroundColor: '#9B9B9B',
+    },
+    grisOscuro: {
+        backgroundColor: '#2D2D2D'
+    },
+    naranja: {
+        backgroundColor: '#FF9427'
     },
     botonTexto: {
         textAlign: 'center',
         padding: 10,
         fontSize: 30,
-        color: 'black',
+        color: 'white',
         fontWeight: '300'
     }
 })
