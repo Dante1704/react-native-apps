@@ -13,7 +13,49 @@ export const CalculadoraScreen = () => {
     }
 
     const armarNumero = (numeroTexto: string) => {
-        setNumero(numero + numeroTexto)
+        //no aceptar doble punto
+        if (numero.includes('.') && numeroTexto === '.') return
+        if (numero.startsWith('0') || numero.startsWith('-0')) {
+            // punto decimal 
+            if (numeroTexto === '.') {
+                setNumero(numero + numeroTexto)
+                //Evaluar si es otro cero, y hay un punto 
+            } else if (numeroTexto === '0' && numeroTexto.includes('.')) {
+                setNumero(numero + numeroTexto)
+                //evaluar si es diferente de cero y no tiene un punto 
+            } else if (numeroTexto !== '0' && !numero.includes('.')) {
+                setNumero(numeroTexto)
+                //evitar 00000.00
+            } else if (numeroTexto === '0' && !numero.includes('.')) {
+                setNumero(numero)
+            } else {
+                setNumero(numero + numeroTexto)
+            }
+        } else {
+            setNumero(numero + numeroTexto)
+        }
+    }
+
+    const positivoNegativo = () => {
+        if (numero.includes('-')) {
+            setNumero(numero.replace('-', ''))
+        } else {
+            setNumero('-' + numero)
+        }
+    }
+
+    const btnDelete = () => {
+        //solo queda el cero, no tiene que hacer nada
+        if (numero === '0') return
+        //solo queda uno mayor que cero
+        if (numero.length === 1) {
+            return setNumero('0')
+        }
+        //quedan dos y es un numero negativo pej -6
+        if (numero.length === 2 && numero.includes('-')) {
+            return setNumero('0')
+        }
+        setNumero(numero.slice(0, - 1)) //me saca el ultimo siempre
     }
 
 
@@ -31,8 +73,8 @@ export const CalculadoraScreen = () => {
             <View style={styles.fila}>
                 {/* Boton */}
                 <BotonCalc texto="C" color={styles.grisClaro.backgroundColor} accion={limpiar} />
-                <BotonCalc texto="+/-" color={styles.grisClaro.backgroundColor} accion={limpiar} />
-                <BotonCalc texto="del" color={styles.grisClaro.backgroundColor} accion={limpiar} />
+                <BotonCalc texto="+/-" color={styles.grisClaro.backgroundColor} accion={positivoNegativo} />
+                <BotonCalc texto="del" color={styles.grisClaro.backgroundColor} accion={btnDelete} />
                 <BotonCalc texto="/" color={styles.naranja.backgroundColor} accion={limpiar} />
             </View>
             {/* #2D2D2D gris oscuro */}
@@ -58,7 +100,7 @@ export const CalculadoraScreen = () => {
             <View style={styles.fila}>
                 {/* si a ancho no le envio nada, asume que es true */}
                 <BotonCalc texto="0" color={styles.grisOscuro.backgroundColor} ancho accion={armarNumero} />
-                <BotonCalc texto="." color={styles.grisOscuro.backgroundColor} accion={limpiar} />
+                <BotonCalc texto="." color={styles.grisOscuro.backgroundColor} accion={armarNumero} />
                 <BotonCalc texto="=" color={styles.naranja.backgroundColor} accion={limpiar} />
             </View>
         </View >
