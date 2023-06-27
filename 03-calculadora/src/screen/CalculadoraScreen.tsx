@@ -93,6 +93,29 @@ export const CalculadoraScreen = () => {
         cambiarNumPorAnterior()
         ultimaOperacion.current = Operadores.restar
     }
+    const calcular = () => {
+        const num1 = Number(numero)
+        const num2 = Number(numeroAnterior)
+        switch (ultimaOperacion.current) {
+            case Operadores.sumar:
+                setNumero(`${num1 + num2}`)
+                break
+            case Operadores.restar:
+                setNumero(`${num2 - num1}`)
+                break
+            case Operadores.multiplicar:
+                setNumero(`${num1 * num2}`)
+                break
+            case Operadores.dividir:
+                if (num1 !== 0) {
+                    setNumero(`${num2 / num1}`)
+                } else {
+                    setNumero('No se puede dividir por 0')
+                }
+                break
+        }
+    }
+
     return (
         <View style={styles.calculadoraContainer}>
             {numeroAnterior !== '0' &&
@@ -137,7 +160,7 @@ export const CalculadoraScreen = () => {
                 {/* si a ancho no le envio nada, asume que es true */}
                 <BotonCalc texto="0" color={styles.grisOscuro.backgroundColor} ancho accion={armarNumero} />
                 <BotonCalc texto="." color={styles.grisOscuro.backgroundColor} accion={armarNumero} />
-                <BotonCalc texto="=" color={styles.naranja.backgroundColor} accion={limpiar} />
+                <BotonCalc texto="=" color={styles.naranja.backgroundColor} accion={calcular} />
             </View>
         </View >
     )
