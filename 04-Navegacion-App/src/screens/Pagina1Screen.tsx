@@ -19,19 +19,28 @@ export const Pagina1Screen = ({ navigation }: Props) => {
                 title="Ir a Pagina 2"
                 onPress={() => navigation.navigate('Pagina2Screen')}
             />
+            <Text>Navegar con Argumentos</Text>
             <View style={{
                 flexDirection: 'row',
             }}>
                 <TouchableOpacity
+                    style={{
+                        ...styles.botonGrande,
+                        backgroundColor: '#5856D6',
+                    }}
                     //en el segundo parametro le mando los params que aparece en las props de PersonaScreen
                     onPress={() => navigation.navigate('PersonaScreen', {
                         id: 1,
                         nombre: 'Pedro',
                     })}
                 >
-                    <Text>Navegar con argumentos</Text>
+                    <Text style={styles.botonGrandeTexto}>Pedro</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                    style={{
+                        ...styles.botonGrande,
+                        backgroundColor: '#ff9427',
+                    }}
                     //en el segundo parametro le mando los params
                     // que aparece en las props de PersonaScreen
                     onPress={() => navigation.navigate('PersonaScreen', {
@@ -39,7 +48,7 @@ export const Pagina1Screen = ({ navigation }: Props) => {
                         nombre: 'Maria',
                     })}
                 >
-                    <Text>Navegar con argumentos</Text>
+                    <Text style={styles.botonGrandeTexto}>Maria</Text>
                 </TouchableOpacity>
             </View>
         </View >
