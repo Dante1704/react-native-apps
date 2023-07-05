@@ -27,7 +27,9 @@ export const StackNavigator = () => {
                 headerStyle: {
                     elevation: 0, //para android
                     shadowColor: 'transparent', //para ios
+
                 },
+                //lo de arriba es igual a esto  headerShadowVisible: false,
                 cardStyle: {
                     backgroundColor: 'white',
                 },
