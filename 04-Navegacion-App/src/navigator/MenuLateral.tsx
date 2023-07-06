@@ -20,6 +20,7 @@ export function MenuLateral() {
                 drawerType: dimensions.width >= 768 ? 'permanent' : 'front', //si esta horizontal que el drawer quede fijo
                 drawerPosition: 'right', //cambiarlo al lado derecho
             }}
+            // eslint-disable-next-line react/no-unstable-nested-components
             drawerContent={(props) => <MenuInterno {...props} />} //este atributo me sirve para crear el contenido del drawer, no puedo ponerlos con Views o Text
         >{/* aca defino las pantallas va a tener el drawer */}
             <Drawer.Screen name="StackNavigator" component={StackNavigator} />

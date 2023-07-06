@@ -19,7 +19,10 @@ export const Pagina1Screen = ({ navigation }: Props) => {
                 title="Ir a Pagina 2"
                 onPress={() => navigation.navigate('Pagina2Screen')}
             />
-            <Text>Navegar con Argumentos</Text>
+            <Text style={{
+                marginVertical: 20,
+                fontSize: 20,
+            }}>Navegar con Argumentos</Text>
             <View style={{
                 flexDirection: 'row',
             }}>
