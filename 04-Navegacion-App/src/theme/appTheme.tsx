@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export const colores = {
-    primary: '#5856d6',
+    primary: '#bab9f7',
+    secondary: '#191694',
 };
 
 export const styles = StyleSheet.create({

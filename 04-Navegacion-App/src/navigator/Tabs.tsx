@@ -24,7 +24,9 @@ const BottomTabAndroid = createMaterialBottomTabNavigator();
 function TabsAndroid() {
     return (
         <BottomTabAndroid.Navigator
-            sceneAnimationEnabled={false}
+            activeColor="white"//color tab activa
+            inactiveColor={colores.secondary}
+            shifting={true}
             barStyle={{ backgroundColor: colores.primary }}
             screenOptions={
                 //manera centralizada de controlar todos los iconos para no tener tanto codigo en cada Tab.Screen
@@ -45,7 +47,6 @@ function TabsAndroid() {
                         }
                         return <Text style={{ color }}>{iconName}</Text>;
                     },
-                    tabBarActiveTintColor: colores.primary, //a la tab activa le pone color morado
                     //para estilar las tabs
                     tabBarStyle: {
                         borderTopColor: colores.primary, //borde superior del menu de tabs
@@ -57,7 +58,7 @@ function TabsAndroid() {
                         fontSize: 15,
                     },
                 })}>
-            <BottomTabAndroid.Screen name="Tab1" component={Tab1Screen} />
+            <BottomTabAndroid.Screen name="Tab1" component={Tab1Screen} /* options={{}} */ />
             <BottomTabAndroid.Screen name="Tab2" component={Tab2Screen} />
             <BottomTabAndroid.Screen name="StackNavigator" component={StackNavigator} />
         </BottomTabAndroid.Navigator>
