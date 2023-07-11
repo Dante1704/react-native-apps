@@ -101,8 +101,9 @@ function TabIOS() {
                     //para estilar las tabs
                     tabBarStyle: {
                         borderTopColor: colores.primary, //borde superior del menu de tabs
-                        //con las siguientes dos propiedades evito que haya una separacion entre el menu de tabs y el resto del screen
+                        //con las siguientes dos propiedades hago que desaparezca la elevacion que separa el menu de tabs y el resto del screen
                         borderTopWidth: 0,
+                        shadowColor: 'transparent', //iOS
                         elevation: 0,
                     },
                     tabBarLabelStyle: {
