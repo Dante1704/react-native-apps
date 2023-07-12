@@ -3,6 +3,7 @@ import { Button, Text, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { styles } from '../theme/appTheme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -15,6 +16,7 @@ export const Pagina1Screen = ({ navigation }: Props) => {
 
     return (
         <View style={styles.globalMargin}>
+
             <Button
                 title="Ir a Pagina 2"
                 onPress={() => navigation.navigate('Pagina2Screen')}
@@ -37,6 +39,7 @@ export const Pagina1Screen = ({ navigation }: Props) => {
                         nombre: 'Pedro',
                     })}
                 >
+                    <Icon name="man" size={30} color="black" />
                     <Text style={styles.botonGrandeTexto}>Pedro</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -51,6 +54,7 @@ export const Pagina1Screen = ({ navigation }: Props) => {
                         nombre: 'Maria',
                     })}
                 >
+                    <Icon name="woman" size={30} color="pink" />
                     <Text style={styles.botonGrandeTexto}>Maria</Text>
                 </TouchableOpacity>
             </View>
