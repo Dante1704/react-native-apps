@@ -14,7 +14,13 @@ export const Tab1Screen = () => {
         <View>
             <Text style={styles.title}>Iconos</Text>
             <Text>
-                <Icon name="basketball-outline" size={30} color="#900" />
+                <Icon name="add-circle" size={30} color="#090909" /> {/* los iconos se renderizan dentro de un text */}
+                <Icon name="american-football" size={30} color="#ea6015" />
+                <Icon name="arrow-forward-circle" size={30} color="#8216e1" />
+                <Icon name="beer" size={30} color="#e8bf05" />
+                <Icon name="battery-full" size={30} color="#12c36b" />
+                <Icon name="camera" size={30} color="#090909" />
+                <Icon name="cloud" size={30} color="#797979" />
             </Text>
         </View>
     );

@@ -8,6 +8,7 @@ import { Tab1Screen } from '../screens/Tab1Screen';
 import { StackNavigator } from './StackNavigator';
 import { colores } from '../theme/appTheme';
 import { TopTabNavigator } from './TopTabNavigator';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 export const Tabs = () => {
@@ -37,16 +38,16 @@ function TabsAndroid() {
                         let iconName: string = '';
                         switch (route.name) {
                             case 'Tab1':
-                                iconName = 'T1';
+                                iconName = 'key';
                                 break;
                             case 'Tab2':
-                                iconName = 'T2';
+                                iconName = 'mail';
                                 break;
                             case 'StackNavigator':
-                                iconName = 'StNav';
+                                iconName = 'musical-notes';
                                 break;
                         }
-                        return <Text style={{ color }}>{iconName}</Text>;
+                        return <Icon name={iconName} size={30} color={color} />; // <Text style={{ color }}>{iconName}</Text>
                     },
                     //para estilar las tabs
                     tabBarStyle: {
