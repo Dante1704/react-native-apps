@@ -3,6 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { MenuLateral } from './src/navigator/MenuLateral';
+import { AuthProvider } from './src/context/AuthContext';
 /* import { MenuLateralBasico } from './src/navigator/MenuLateralBasico'; */
 /* import { StackNavigator } from './src/navigator/StackNavigator'; */
 
@@ -13,9 +14,11 @@ function App(): JSX.Element {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        {/* <StackNavigator /> */}
-        {/* <MenuLateralBasico /> */}
-        <MenuLateral />
+        <AppState>
+          {/* <StackNavigator /> */}
+          {/* <MenuLateralBasico /> */}
+          <MenuLateral />
+        </AppState>
       </NavigationContainer>
     </PaperProvider>
   );
@@ -24,4 +27,11 @@ function App(): JSX.Element {
 /* const styles = StyleSheet.create({
 }); */
 
+const AppState = ({ children }: any) => {
+  return (
+    <AuthProvider>
+      {children}
+    </AuthProvider>
+  );
+};
 export default App;
