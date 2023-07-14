@@ -29,11 +29,17 @@ export const AuthProvider = ({ children }: any) => {
 
     const [authState, dispatch] = useReducer(authReducer, authInitialState);
 
+    //esta funcion me la defino para que cuando se ejecute en el componente que sea utilizada,
+    // el reducer ejecuta la accion de tipo 'signIn'
+    const signIn = () => {
+        dispatch({ type: 'signIn' });
+    };
+
     return (
         <AuthContext.Provider
             value={{
-                authState: authInitialState,
-                signIn: () => { },
+                authState,
+                signIn,
             }}
         >
             {children}
