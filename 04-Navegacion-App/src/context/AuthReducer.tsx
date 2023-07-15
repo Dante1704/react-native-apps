@@ -3,7 +3,8 @@ import { AuthState } from './AuthContext';
 
 type AuthAction = { type: 'signIn' } |
 { type: 'setFavoriteIcon', payload: string } |
-{ type: 'logOut' }
+{ type: 'logOut' } |
+{ type: 'setUsername', payload: string }
 
 // le tengo que pedir que retorne siempre algo de tipo AuthState para que no crashee la app
 export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
@@ -26,6 +27,11 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 isLoggedIn: false,
                 username: undefined,
                 favoriteIcon: undefined,
+            };
+        case 'setUsername':
+            return {
+                ...state,
+                username: action.payload,
             };
         default:
             return state;

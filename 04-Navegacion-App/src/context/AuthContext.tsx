@@ -21,6 +21,7 @@ export interface AuthContextProps {
     signIn: () => void;
     setFavoriteIcon: (favoriteIcon: string) => void;
     logOut: () => void;
+    setUsername: (username: string) => void;
 }
 
 //creo el context
@@ -45,6 +46,10 @@ export const AuthProvider = ({ children }: any) => {
         dispatch({ type: 'logOut' });
     };
 
+    const setUsername = (username: string) => {
+        dispatch({ type: 'setUsername', payload: username });
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -52,6 +57,7 @@ export const AuthProvider = ({ children }: any) => {
                 signIn,
                 setFavoriteIcon,
                 logOut,
+                setUsername,
             }}
         >
             {children}
