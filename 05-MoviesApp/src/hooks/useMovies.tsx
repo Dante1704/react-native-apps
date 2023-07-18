@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import movieDB from '../api/movieDB';
 import { Movie, MovieDBNowPlaying } from '../interfaces/movieInterface';
 
-const useMovies = () => {
+export const useMovies = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [peliculasEnCartelera, setpeliculasEnCartelera] = useState<Movie[]>([]);
 
@@ -21,4 +21,4 @@ const useMovies = () => {
     return { peliculasEnCartelera, isLoading };
 };
 
-export default useMovies;
+

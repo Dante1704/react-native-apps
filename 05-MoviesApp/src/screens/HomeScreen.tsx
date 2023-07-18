@@ -1,29 +1,27 @@
 import React from 'react';
-import { ActivityIndicator, Button, Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import useMovies from '../hooks/useMovies';
+import { useMovies } from '../hooks/useMovies';
+import { Loading } from '../components/Loading';
 
 
 export const HomeScreen = (/* { navigation }: Props */) => {
     const navigation = useNavigation<any>();
     const { peliculasEnCartelera, isLoading } = useMovies();
 
-
-    if (isLoading) {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
-                <ActivityIndicator color={'red'} size={100} />
-            </View>
-        );
-    }
-
     return (
-        <View>
-            <Text>Home Screen</Text>
-            <Button
-                title="Ir al Detalle"
-                onPress={() => navigation.navigate('DetailScreen')}
-            />
-        </View>
+        <>
+            {
+                isLoading ?
+                    <Loading /> :
+                    < View >
+                        <Text>Home Screen</Text>
+                        <Button
+                            title="Ir al Detalle"
+                            onPress={() => navigation.navigate('DetailScreen')}
+                        />
+                    </ View>
+            }
+        </>
     );
 };
