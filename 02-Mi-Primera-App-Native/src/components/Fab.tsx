@@ -53,12 +53,12 @@ const Fab = ({ title, onPress, position = 'br' }: Props) => {
 
 const styles = StyleSheet.create({
     fab: {
-        height: 60,
+        height: 200,
         width: 60,
         backgroundColor: '#5856d6',
         borderRadius: 100,
         justifyContent: 'center',
-        shadowColor: '#838282',
+        shadowColor: '#000000',
         shadowOffset: {
             width: 0,
             height: 4,
@@ -66,17 +66,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.30,
         shadowRadius: 4.65,
 
-        elevation: 8,
+        elevation: 30,
     },
     fabLocation: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 100,
     },
     fabLocationR: {
-        right: 20,
+        right: 40,
     },
     fabLocationL: {
-        left: 20,
+        left: 40,
     },
     textButtonIncrementar: {
         textAlign: 'center',

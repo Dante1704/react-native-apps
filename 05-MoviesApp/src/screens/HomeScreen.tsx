@@ -1,12 +1,15 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
+import { View } from 'react-native';
+//import { useNavigation } from '@react-navigation/core';
 import { useMovies } from '../hooks/useMovies';
 import { Loading } from '../components/Loading';
+import { MoviePoster } from '../components/MoviePoster';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
-export const HomeScreen = (/* { navigation }: Props */) => {
-    const navigation = useNavigation<any>();
+export const HomeScreen = () => {
+    //const navigation = useNavigation<any>();
+    const { top } = useSafeAreaInsets(); //para no renderizar sobre el notch de iOS
     const { peliculasEnCartelera, isLoading } = useMovies();
 
     return (
@@ -14,12 +17,8 @@ export const HomeScreen = (/* { navigation }: Props */) => {
             {
                 isLoading ?
                     <Loading /> :
-                    < View >
-                        <Text>Home Screen</Text>
-                        <Button
-                            title="Ir al Detalle"
-                            onPress={() => navigation.navigate('DetailScreen')}
-                        />
+                    <View style={{ marginTop: top + 20 }}>
+                        <MoviePoster movie={peliculasEnCartelera[1]} />
                     </ View>
             }
         </>
