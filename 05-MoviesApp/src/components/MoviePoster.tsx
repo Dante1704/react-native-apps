@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
         shadowOffset: {
             width: 0,
             height: 7,
-        },
-        shadowOpacity: 0.43,
-        shadowRadius: 9.51,
+        },//iOS only
+        shadowOpacity: 0.43,//iOS only
+        shadowRadius: 30,//iOS only
 
-        elevation: 15,
+        elevation: 5,
     },
     image: {
         flex: 1,

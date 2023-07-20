@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View, useWindowDimensions, ScrollView } from 'react-native';
+import { View, useWindowDimensions, ScrollView } from 'react-native';
 //import { useNavigation } from '@react-navigation/core';
 import { useMovies } from '../hooks/useMovies';
 import { Loading } from '../components/Loading';
 import { MoviePoster } from '../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
-import { FlatList } from 'react-native-gesture-handler';
+import { HorizontalSlider } from '../components/HorizontalSlider';
 
 
 
@@ -43,61 +43,8 @@ export const HomeScreen = () => {
                     />
                 </ View>
                 {/* peliculas populares*/}
-                <View style={{ height: 250 }}>
-                    <Text style={{
-                        fontSize: 30,
-                        fontWeight: 'bold',
-                    }}
-                    >
-                        En cine
-                    </Text>
-                    {/* Flatlist para listar elementos, muy parecido al carousel pero sin las animaciones y efectos */}
-                    <FlatList
-                        data={peliculasEnCartelera}
-                        renderItem={({ item }) => {
-                            return (
-                                isLoading ?
-                                    <Loading /> :
-                                    <MoviePoster
-                                        movie={item}
-                                        width={140}
-                                        height={200}
-                                    />
-                            );
-                        }}
-                        keyExtractor={(item) => item.id.toString()} //prop para pasarle un id como key, pide que sea un string
-                        horizontal={true} //para que sea horizontal, sino por def es vertical
-                        showsHorizontalScrollIndicator={false} //ocultar el indicador del scroll
-                    />
-                </View>
-                <View style={{ height: 250 }}>
-                    <Text style={{
-                        fontSize: 30,
-                        fontWeight: 'bold',
-                    }}
-                    >
-                        En cine
-                    </Text>
-
-                    {/* Flatlist para listar elementos */}
-                    <FlatList
-                        data={peliculasEnCartelera}
-                        renderItem={({ item }) => {
-                            return (
-                                isLoading ?
-                                    <Loading /> :
-                                    <MoviePoster
-                                        movie={item}
-                                        width={140}
-                                        height={200}
-                                    />
-                            );
-                        }}
-                        keyExtractor={(item) => item.id.toString()} //prop para pasarle un id como key, pide que sea un string
-                        horizontal={true} //para que sea horizontal, sino por def es vertical
-                        showsHorizontalScrollIndicator={false} //ocultar el indicador del scroll
-                    />
-                </View>
+                <HorizontalSlider title={'En cine'} movies={peliculasEnCartelera} isLoading={isLoading} />
+                <HorizontalSlider title={'En cine'} movies={peliculasEnCartelera} isLoading={isLoading} />
             </ScrollView>
         </>
     );
