@@ -1,21 +1,28 @@
 import React from 'react';
-import { Image, StyleSheet, View, useWindowDimensions } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { Movie } from '../interfaces/movieInterface';
 //recibo la pelicula y renderizo el poster
 
 interface Props {
-    movie: Movie;
+    movie: Movie,
+    height?: number,
+    width?: number
 }
 
-export const MoviePoster = ({ movie }: Props) => {
+export const MoviePoster = ({ movie, height = 400, width = 250 }: Props) => {
 
-    const { width } = useWindowDimensions();
+
 
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
     return (
 
-        <View style={styles.imageContainer}>
+        <View style={{
+            ...styles.imageContainer,
+            width,
+            height,
+            marginHorizontal: 5,
+        }}>
             <Image
                 source={{ uri }}
                 style={styles.image}
@@ -28,8 +35,6 @@ export const MoviePoster = ({ movie }: Props) => {
 
 const styles = StyleSheet.create({
     imageContainer: {
-        height: 400,
-        width: 250,
         backgroundColor: '#5856d6',
         borderRadius: 18,
         justifyContent: 'center',
