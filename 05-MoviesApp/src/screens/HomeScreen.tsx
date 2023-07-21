@@ -15,7 +15,13 @@ export const HomeScreen = () => {
 
     const { width } = useWindowDimensions();
     const { top } = useSafeAreaInsets(); //para no renderizar sobre el notch de iOS
-    const { peliculasEnCartelera, isLoading } = useMovies();
+    const { nowPlaying, popular, topRated, upcoming, isLoading } = useMovies();
+
+    if (isLoading) {
+        return (
+            <Loading />
+        );
+    }
 
     return (
         <>
@@ -29,12 +35,10 @@ export const HomeScreen = () => {
                     {/* carousel principal*/}
                     {/* carousel instalado de react-native-snap-carousel */}
                     <Carousel
-                        data={peliculasEnCartelera}
+                        data={nowPlaying}
                         renderItem={({ item }) => {
                             return (
-                                isLoading ?
-                                    <Loading /> :
-                                    <MoviePoster movie={item} />
+                                <MoviePoster movie={item} />
                             );
                         }}
                         sliderWidth={width}
@@ -43,8 +47,9 @@ export const HomeScreen = () => {
                     />
                 </ View>
                 {/* peliculas populares*/}
-                <HorizontalSlider title={'En cine'} movies={peliculasEnCartelera} isLoading={isLoading} />
-                <HorizontalSlider title={'En cine'} movies={peliculasEnCartelera} isLoading={isLoading} />
+                <HorizontalSlider title={'Populares'} movies={popular} />
+                <HorizontalSlider title={'Mejor calificadas'} movies={topRated} />
+                <HorizontalSlider title={'Proximas en cartelera'} movies={upcoming} />
             </ScrollView>
         </>
     );
