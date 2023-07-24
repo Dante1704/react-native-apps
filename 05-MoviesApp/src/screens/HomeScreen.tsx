@@ -47,6 +47,7 @@ export const HomeScreen = () => {
                     />
                 </ View>
                 {/* peliculas populares*/}
+                {/* son flatList propios de React Native */}
                 <HorizontalSlider title={'Populares'} movies={popular} />
                 <HorizontalSlider title={'Mejor calificadas'} movies={topRated} />
                 <HorizontalSlider title={'Proximas en cartelera'} movies={upcoming} />

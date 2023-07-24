@@ -2,10 +2,16 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import { DetailScreen } from '../screens/DetailScreen';
+import { Movie } from '../interfaces/movieInterface';
 
+//tipado de las rutas segun recomendacion de react docs
+export type RootStackParams = {
+    //los que tineen undefined significa que no reciben nada, el tipado es intencional
+    HomeScreen: undefined,
+    DetailScreen: Movie,
+}
 
-
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParams>();
 
 export const Navigation = () => {
     return (
@@ -16,7 +22,7 @@ export const Navigation = () => {
                     backgroundColor: 'white',
                 },
             }}>
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="DetailScreen" component={DetailScreen} />
 
         </Stack.Navigator>
