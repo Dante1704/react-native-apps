@@ -11,7 +11,7 @@ interface Props {
     width?: number
 }
 
-export const MoviePoster = ({ movie, height = 400, width = 250 }: Props) => {
+export const MoviePoster = ({ movie, height = 420, width = 290 }: Props) => {
 
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
@@ -21,13 +21,13 @@ export const MoviePoster = ({ movie, height = 400, width = 250 }: Props) => {
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate('DetailScreen', movie)}
-            activeOpacity={0.6}
+            activeOpacity={0.8}
             style={{
-                width,
-                height,
-                marginHorizontal: 8,
+                marginHorizontal: 2,
+                paddingBottom: 20,
             }}
         >
+
             <View style={{
                 ...styles.imageContainer,
                 width,
@@ -36,7 +36,11 @@ export const MoviePoster = ({ movie, height = 400, width = 250 }: Props) => {
             }}>
                 <Image
                     source={{ uri }}
-                    style={styles.image}
+                    style={{
+                        ...styles.image,
+                        width: width - 5,
+                        height: height - 5,
+                    }}
                 />
             </View>
         </TouchableOpacity>
@@ -45,22 +49,19 @@ export const MoviePoster = ({ movie, height = 400, width = 250 }: Props) => {
 
 
 const styles = StyleSheet.create({
-    imageContainer: {
-        backgroundColor: '#5856d6',
+    image: {
         borderRadius: 18,
-        justifyContent: 'center',
-        shadowColor: '#000000',
+    },
+    imageContainer: {
+        borderRadius: 18,
+        shadowColor: '#929292',
         shadowOffset: {
             width: 0,
-            height: 7,
+            height: 2,
         },//iOS only
-        shadowOpacity: 0.43,//iOS only
-        shadowRadius: 30,//iOS only
+        shadowOpacity: 0.24,//iOS only
+        shadowRadius: 7,//iOS only
 
-        elevation: 5,
-    },
-    image: {
-        flex: 1,
-        borderRadius: 18,
+        elevation: 3,
     },
 });

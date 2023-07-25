@@ -30,7 +30,7 @@ export const HomeScreen = () => {
                 <View style={{
                     marginTop: top + 20,
                     //al view le defino un tamaño levemente superior al de las imagenes para que se renderize la shadow
-                    height: 420,
+                    height: 440,
                 }}>
                     {/* carousel principal*/}
                     {/* carousel instalado de react-native-snap-carousel */}
@@ -42,7 +42,8 @@ export const HomeScreen = () => {
                             );
                         }}
                         sliderWidth={width}
-                        itemWidth={280}
+                        itemWidth={300}
+                        inactiveSlideOpacity={0.9}
                         vertical={false} //sin esto no funciona
                     />
                 </ View>
