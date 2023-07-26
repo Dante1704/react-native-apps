@@ -3,8 +3,9 @@ import { Image, StyleSheet, Text, View, useWindowDimensions } from 'react-native
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../navigation/Navigation';
 import { ScrollView } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { useMovieDetails } from '../hooks/useMovieDetails';
+import { Loading } from '../components/Loading';
+import { MovieDetails } from '../components/MovieDetails';
 
 
 interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> { }
@@ -36,7 +37,11 @@ export const DetailScreen = ({ route }: Props) => {
                 <Text style={styles.title}>{movie.title}</Text>
             </View>
             <View style={styles.marginContainer}>
-                <Icon name="star-outline" color="gray" size={20} />
+                {
+                    isLoading ?
+                        <Loading /> :
+                        <MovieDetails movieFull={movieFull!} cast={cast} />
+                }
             </View>
         </ScrollView>
     );
@@ -64,7 +69,6 @@ const styles = StyleSheet.create({
     },
     marginContainer: {
         marginHorizontal: 20,
-        marginTop: 20,
     },
     subTitle: {
         fontSize: 16,
