@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     goBackButton: {
         position: 'absolute',
         borderRadius: 100,
-        zIndex: 10,
+        zIndex: 10, //si no funciona, probar con elevation también
         left: 20,
         top: 20,
     },
