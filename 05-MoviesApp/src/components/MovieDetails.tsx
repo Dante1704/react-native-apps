@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { MovieFull } from '../interfaces/movieInterface';
 import { Cast } from '../interfaces/creditsInterface';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -40,7 +40,18 @@ export const MovieDetails = ({ movieFull, cast }: Props) => {
             {/*casting */}
             <View style={{ marginTop: 10 }}>
                 <Text style={{ fontSize: 20, marginTop: 10, fontWeight: 'bold' }} >Actores</Text>
-                <CastItem actor={cast[0]} />
+                <FlatList
+                    data={cast}
+                    renderItem={({ item }) => {
+                        return (
+                            <CastItem actor={item} />
+                        );
+                    }}
+                    keyExtractor={(item) => item.id.toString()} //prop para pasarle un id como key, pide que sea un string
+                    horizontal={true} //para que sea horizontal, sino por def es vertical
+                    showsHorizontalScrollIndicator={false} //ocultar el indicador del scroll
+                />
+
             </View>
         </>
     );

@@ -7,15 +7,23 @@ interface Props {
 }
 export const CastItem = ({ actor }: Props) => {
 
-    const uri = `https://image.tmdb.org/t/p/w500${actor.profile_path}`;
+    const uri = `https://image.tmdb.org/t/p/w500${actor.profile_path}`; // la foto del actor puede
     return (
         <View style={styles.container}>
-            <Image
-                source={{ uri }}
-                style={{ width: 50, height: 50, borderRadius: 10 }} />
+            {
+                actor.profile_path && <Image
+                    source={{ uri }}
+                    style={{ width: 50, height: 50, borderRadius: 10 }}
+                />
+            }
+
             <View style={{ marginLeft: 10 }} >
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{actor.name}</Text>
-                <Text style={{ fontSize: 16, opacity: 0.7 }}>{actor.character}</Text>
+                <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 5 }}>
+                    {actor.name}
+                </Text>
+                <Text style={{ fontSize: 16, opacity: 0.7, marginRight: 5 }}>
+                    {actor.character}
+                </Text>
             </View>
         </View>
     );
@@ -23,8 +31,9 @@ export const CastItem = ({ actor }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: -20, //este solo lo pongo para anular el que viene del view del detail screen
-        marginBottom: 10,
+        marginRight: 15, //este solo lo pongo para anular el que viene del view del detail screen
+        marginVertical: 12,
+        height: 50,
         flexDirection: 'row',
         backgroundColor: 'white',
         borderRadius: 10,
@@ -36,6 +45,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.32,
         shadowRadius: 5.46,
 
-        elevation: 10,
+        elevation: 7,
     },
 });

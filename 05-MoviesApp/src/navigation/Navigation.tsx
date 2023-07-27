@@ -15,6 +15,7 @@ const Stack = createStackNavigator<RootStackParams>();
 
 export const Navigation = () => {
     return (
+        //El stack navigator funciona como el DOM Tree y si estilo el navigator, es como estilar el html entero
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
@@ -22,8 +23,9 @@ export const Navigation = () => {
                     backgroundColor: 'white',
                 },
             }}>
+            {/* //desde aca puedo estilar cada screen en general con "cardStyle", si el componente esta renderizado con fragments*/}
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="DetailScreen" component={DetailScreen} />
+            <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ cardStyle: { backgroundColor: '#f5f5f5' } }} />
 
         </Stack.Navigator>
     );
