@@ -1,17 +1,18 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { Image, StyleSheet, Text, View, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../navigation/Navigation';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useMovieDetails } from '../hooks/useMovieDetails';
 import { Loading } from '../components/Loading';
 import { MovieDetails } from '../components/MovieDetails';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> { }
 
 
-export const DetailScreen = ({ route }: Props) => {
+export const DetailScreen = ({ route, navigation }: Props) => {
 
     const movie = route.params;
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
@@ -23,6 +24,9 @@ export const DetailScreen = ({ route }: Props) => {
 
     return (
         <ScrollView>
+            <TouchableOpacity style={styles.goBackButton} onPress={navigation.goBack}>
+                <Icon name="arrow-back-circle" size={60} color={'white'} />
+            </TouchableOpacity>
             <View style={{
                 ...styles.posterImageContainer,
                 height: height * 0.7,
@@ -77,5 +81,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
+    },
+    goBackButton: {
+        position: 'absolute',
+        borderRadius: 100,
+        zIndex: 10,
+        left: 20,
+        top: 20,
     },
 });
