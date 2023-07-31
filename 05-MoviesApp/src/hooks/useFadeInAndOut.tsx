@@ -8,7 +8,8 @@ export const useFadeInAndOut = () => {
     //y como es una instancia de Animated, tengo que extraer su valor numerico con el .current
     const opacityValue = useRef(new Animated.Value(0)).current;
 
-    //declaro la animacion y llamo el metodo start() para que cunado llamo a fadeIn inicie
+    //declaro la animacion y llamo el metodo start()
+    // para ejecutar la animacion de timing
     const fadeIn = () => {
         Animated.timing(
             opacityValue,

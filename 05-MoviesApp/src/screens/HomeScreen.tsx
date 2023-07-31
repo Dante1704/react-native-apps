@@ -7,6 +7,7 @@ import { MoviePoster } from '../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
 import { HorizontalSlider } from '../components/HorizontalSlider';
+import { GradientBackground } from '../components/GradientBackground';
 
 
 
@@ -24,7 +25,7 @@ export const HomeScreen = () => {
     }
 
     return (
-        <>
+        <GradientBackground>
             {/* ScrollView para poder scrollear en todo el screen */}
             <ScrollView>
                 <View style={{
@@ -53,7 +54,7 @@ export const HomeScreen = () => {
                 <HorizontalSlider title={'Mejor calificadas'} movies={topRated} />
                 <HorizontalSlider title={'Proximas en cartelera'} movies={upcoming} />
             </ScrollView>
-        </>
+        </GradientBackground>
     );
 };
 

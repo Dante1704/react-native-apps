@@ -9,7 +9,7 @@ export const FadeScreen = () => {
     return (
         <View style={{
             flex: 1,
-            backgroundColor: 'gray',
+            backgroundColor: '#cdcdcd',
             justifyContent: 'center',
             alignItems: 'center',
         }}>
