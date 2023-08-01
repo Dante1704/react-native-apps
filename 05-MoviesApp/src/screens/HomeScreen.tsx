@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, useWindowDimensions, ScrollView } from 'react-native';
 //import { useNavigation } from '@react-navigation/core';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Carousel from 'react-native-snap-carousel';
 import { useMovies } from '../hooks/useMovies';
 import { Loading } from '../components/Loading';
 import { MoviePoster } from '../components/MoviePoster';
-import Carousel from 'react-native-snap-carousel';
 import { HorizontalSlider } from '../components/HorizontalSlider';
 import { GradientBackground } from '../components/GradientBackground';
 import { getImageColors } from '../helpers/getImageColors';
+import { GradientContext } from '../context/GradientContext';
 
 
 
 export const HomeScreen = () => {
     //const navigation = useNavigation<any>();
-
+    const { setMainColors } = useContext(GradientContext);
     const { width } = useWindowDimensions();
     const { top } = useSafeAreaInsets(); //para no renderizar sobre el notch de iOS
     const { nowPlaying, popular, topRated, upcoming, isLoading } = useMovies();
@@ -23,6 +24,7 @@ export const HomeScreen = () => {
         const currentMovie = nowPlaying[index];
         const uri = `https://image.tmdb.org/t/p/w500${currentMovie.poster_path}`;
         const { primaryColor, secondaryColor } = await getImageColors(uri);
+        setMainColors({ primaryColor, secondaryColor });
     };
 
     if (isLoading) {

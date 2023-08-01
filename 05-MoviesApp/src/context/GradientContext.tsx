@@ -23,8 +23,8 @@ interface Props {
 export const GradientProvider = ({ children }: Props) => {
 
     const [colors, setColors] = useState<ImageColors>({
-        primaryColor: 'transparent',
-        secondaryColor: 'transparent',
+        primaryColor: 'pink',
+        secondaryColor: 'pink',
     });
     const setMainColors = (colors: ImageColors) => {
         setColors(colors);
