@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
 import { View, useWindowDimensions, ScrollView } from 'react-native';
 //import { useNavigation } from '@react-navigation/core';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -26,6 +27,17 @@ export const HomeScreen = () => {
         const { primaryColor, secondaryColor } = await getImageColors(uri);
         setMainColors({ primaryColor, secondaryColor });
     };
+
+    //la primera vez originalmente no toma el color de la primer pelicula del carousel
+    //porque lo detecta vacio,
+    //por eso con este useEffect logro que tome incluso el color de la primer pelicula
+    //del color del resto de los posters se encarga el onSnapToItem
+    useEffect(() => {
+        if (nowPlaying.length > 0) {
+            getPosterColors(0);
+        }
+    }, [nowPlaying]);
+
 
     if (isLoading) {
         return (

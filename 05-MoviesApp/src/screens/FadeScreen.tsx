@@ -2,6 +2,8 @@ import React from 'react';
 import { Animated, View, TouchableOpacity, Text } from 'react-native';
 import { useFadeInAndOut } from '../hooks/useFadeInAndOut';
 
+
+//la finalidad de este componente era lograr animar la opacidad de una caja, solo es de prueba
 export const FadeScreen = () => {
 
     const { opacityValue, fadeIn, fadeOut } = useFadeInAndOut();
@@ -33,12 +35,12 @@ export const FadeScreen = () => {
                 opacity: opacityValue,
             }} />
             {/* cuando presiono, que aparezca el box */}
-            <TouchableOpacity onPress={fadeIn}>
+            <TouchableOpacity onPress={() => fadeIn()}>
                 <Text style={{ fontSize: 30 }}>
                     Fade In
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={fadeOut}>
+            <TouchableOpacity onPress={() => fadeOut()}>
                 <Text style={{ fontSize: 30 }}>
                     Fade Out
                 </Text>
