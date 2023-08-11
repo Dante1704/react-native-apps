@@ -1,39 +1,10 @@
-import React, { useRef } from 'react';
-import { Easing } from 'react-native';
+import React from 'react';
 import { Animated, Button, StyleSheet, View } from 'react-native';
+import { useAnimation } from '../hooks/useAnimation';
 
 export const Animation101Screen = () => {
 
-    const opacity = useRef(new Animated.Value(0)).current;
-    const top = useRef(new Animated.Value(-100)).current;
-
-    const fadeIn = () => {
-        Animated.timing(
-            opacity, {
-            toValue: 1,
-            duration: 300,
-            useNativeDriver: true,
-        }).start();
-
-        Animated.timing(
-            top,
-            {
-                toValue: 0,
-                duration: 700,
-                useNativeDriver: true,
-                easing: Easing.bounce, //con esta propiedad elijo la manera en la que la caja cae, y diciendo bounce hago que rebote.
-            }
-        ).start();
-    };
-
-    const fadeOut = () => {
-        Animated.timing(
-            opacity, {
-            toValue: 0,
-            duration: 300,
-            useNativeDriver: true,
-        }).start();
-    };
+    const { opacity, top, fadeIn, fadeOut } = useAnimation();
 
     return (
         <View style={styles.container}>
