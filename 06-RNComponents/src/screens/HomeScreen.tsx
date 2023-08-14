@@ -1,22 +1,21 @@
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { styles } from '../theme/Theme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FlatListMenuItem } from '../components/FlatListMenuItem';
 import { menuItems } from '../data/menuItems';
+import { HeaderTitle } from '../components/HeaderTitle';
 
 
 
 
 export const HomeScreen = () => {
 
-    const { top } = useSafeAreaInsets();
 
     const renderListHeader = () => {
         return (
-            <View style={{ marginTop: top + 20, marginBottom: 20 }}>
-                <Text style={styles.title}>Opciones de Menú</Text>
-            </View>
+            <HeaderTitle
+                title="Opciones de Menú"
+            />
         );
     };
 
@@ -26,6 +25,7 @@ export const HomeScreen = () => {
                 style={{ borderBottomWidth: 5, opacity: 0.4, marginVertical: 5 }} />
         );
     };
+
     return (
         <View style={{ flex: 1, ...styles.globalMargin }}>
             <FlatList
