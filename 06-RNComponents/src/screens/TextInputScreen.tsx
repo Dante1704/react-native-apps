@@ -1,23 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/Theme';
-import { View, TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+import { View, TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Button, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useForm } from '../hooks/useForm';
+import { InitialState } from '../interfaces/appInterfaces';
+import { CustomSwitch } from '../components/CustomSwitch';
+
+
+
+
+const initialState: InitialState = {
+    name: '',
+    email: '',
+    phone: '',
+    isSubscribed: false,
+};
 
 export const TextInputScreen = () => {
 
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        phone: '',
-    });
+    const { form, handleChange } = useForm(initialState);
 
-    const handleChange = (value: string, field: keyof typeof form) => {
-        setForm({
-            ...form,
-            [field]: value,
-        });
-    };
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -41,6 +44,13 @@ export const TextInputScreen = () => {
                                 onChangeText={(value) => handleChange(value, 'email')}
                                 keyboardType="email-address" //email-address me permite tener el @ sin tener que cambiar a simbolos en el teclado
                             />
+
+                            <View style={stylesScreen.switchRow}>
+                                <Text style={stylesScreen.switchText}>
+                                    Suscribirse:
+                                </Text>
+                                <CustomSwitch isOn={form.isSubscribed} onChange={(value) => handleChange(value, 'isSubscribed')} />
+                            </View>
 
                             <HeaderTitle title={JSON.stringify(form, null, 2)} />
                             <HeaderTitle title={JSON.stringify(form, null, 2)} />
@@ -75,5 +85,13 @@ const stylesScreen = StyleSheet.create({
     btnContainer: {
         backgroundColor: 'white',
         marginTop: 12,
+    },
+    switchRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    switchText: {
+        fontSize: 25,
     },
 });
