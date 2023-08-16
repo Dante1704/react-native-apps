@@ -6,6 +6,7 @@ import { Animation102Screen } from '../screens/Animation102Screen';
 import { SwitchScreen } from '../screens/SwitchScreen';
 import { AlertScreen } from '../screens/AlertScreen';
 import { TextInputScreen } from '../screens/TextInputScreen';
+import { PullToRefreshScreen } from '../screens/PullToRefreshScreen';
 
 
 //tipado de las rutas segun recomendacion de react docs
@@ -17,6 +18,7 @@ export type RootStackParams = {
     SwitchScreen: undefined,
     AlertScreen: undefined,
     TextInputScreen: undefined
+    PullToRefreshScreen: undefined
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -27,6 +29,9 @@ export const Navigation = () => {
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
+                cardStyle: {
+                    backgroundColor: 'white',
+                },
             }}>
             {/* //desde aca puedo estilar cada screen en general con "cardStyle", si el componente esta renderizado con fragments*/}
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
@@ -35,6 +40,7 @@ export const Navigation = () => {
             <Stack.Screen name="SwitchScreen" component={SwitchScreen} />
             <Stack.Screen name="AlertScreen" component={AlertScreen} />
             <Stack.Screen name="TextInputScreen" component={TextInputScreen} />
+            <Stack.Screen name="PullToRefreshScreen" component={PullToRefreshScreen} />
 
         </Stack.Navigator>
     );
