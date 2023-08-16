@@ -22,6 +22,9 @@ export const PullToRefreshScreen = () => {
                 <RefreshControl
                     refreshing={refreshing} //cuando este es true, se activa el refresh
                     onRefresh={handleRefresh} //con esta prop le indico que hacer cuando se refresca y tambien para deterlo
+                    progressViewOffset={150} //para manejar la distancia que baja el icono de refresh
+                    progressBackgroundColor={'#5856d6'} //el background del refresh
+                    colors={['white', 'red', 'violet']} //Android: aca puedo configurar los colores que va tomando el refresh
                 />
             }
         >
