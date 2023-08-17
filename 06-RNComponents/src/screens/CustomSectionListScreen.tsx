@@ -25,6 +25,9 @@ const casas: Casas[] = [
 ];
 
 export const CustomSectionListScreen = () => {
+
+    const listFooterComponent = () => <HeaderTitle title={'Total de industrias: ' + casas.length} />;
+
     return (
         <View style={{ ...styles.globalMargin, flex: 1 }}>
             {/* <HeaderTitle title="Section List" /> */}
@@ -42,7 +45,7 @@ export const CustomSectionListScreen = () => {
                 renderItem={({ item }) => <Text>{item}</Text>}
                 // ItemSeparatorComponent={itemSeparator}
                 renderSectionFooter={({ section }) => <HeaderTitle title={'Total: ' + section.data.length} />}
-                ListFooterComponent={() => <HeaderTitle title={'Total de industrias: ' + casas.length} />}
+                ListFooterComponent={listFooterComponent}
             />
         </View>
     );
