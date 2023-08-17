@@ -2,24 +2,25 @@ import React from 'react';
 import { SectionList, Text, View } from 'react-native';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/Theme';
+import { itemSeparator } from '../components/ItemSeparator';
 
 interface Casas {
-    casa: string;
+    industria: string;
     data: string[];
 }
 
 const casas: Casas[] = [
     {
-        casa: 'DC Comics',
+        industria: 'DC Comics',
         data: ['Batman', 'Superman', 'Robin', 'Batman', 'Superman', 'Robin', 'Batman', 'Superman', 'Robin', 'Batman', 'Superman', 'Robin'],
     },
     {
-        casa: 'Marvel Comics',
-        data: ['Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman'],
+        industria: 'Marvel Comics',
+        data: ['Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman', 'Antman', 'Thor', 'Spiderman'],
     },
     {
-        casa: 'Anime',
-        data: ['Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama'],
+        industria: 'Anime',
+        data: ['Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama', 'Kenshin', 'Goku', 'Saitama'],
     },
 ];
 
@@ -29,14 +30,19 @@ export const CustomSectionListScreen = () => {
             {/* <HeaderTitle title="Section List" /> */}
             <SectionList
                 sections={casas} //hay que pasarle un array de objetos donde cada objeto tiene el nombre de su seccion y sus elementos correspondientes
+                SectionSeparatorComponent={itemSeparator}
+                ListHeaderComponent={() => <HeaderTitle title="Section List" />} //el titulo de la lista con la ventaja de que tambien se scrollea, no queda sticky
                 stickySectionHeadersEnabled={true} //Android: Makes section headers stick to the top of the screen until the next one pushes it off. Only enabled by default on iOS because that is the platform standard there.
-                keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) => <Text>{item}</Text>}
-                renderSectionHeader={({ section: { casa } }) => (
+                renderSectionHeader={({ section: { industria } }) => (
                     <View style={{ backgroundColor: 'white' }}>
-                        <HeaderTitle title={casa} />
+                        <HeaderTitle title={industria} />
                     </View>
                 )}//aca agarra el nombre de la seccion automaticamante y lo inserta antes que todos sus elementos
+                keyExtractor={(item, index) => item + index}
+                renderItem={({ item }) => <Text>{item}</Text>}
+                // ItemSeparatorComponent={itemSeparator}
+                renderSectionFooter={({ section }) => <HeaderTitle title={'Total: ' + section.data.length} />}
+                ListFooterComponent={() => <HeaderTitle title={'Total de industrias: ' + casas.length} />}
             />
         </View>
     );

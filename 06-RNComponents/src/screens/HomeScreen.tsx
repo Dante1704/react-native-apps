@@ -4,6 +4,7 @@ import { styles } from '../theme/Theme';
 import { FlatListMenuItem } from '../components/FlatListMenuItem';
 import { menuItems } from '../data/menuItems';
 import { HeaderTitle } from '../components/HeaderTitle';
+import { itemSeparator } from '../components/ItemSeparator';
 
 
 
@@ -19,12 +20,7 @@ export const HomeScreen = () => {
         );
     };
 
-    const itemSeparator = () => {
-        return (
-            <View
-                style={{ borderBottomWidth: 5, opacity: 0.4, marginVertical: 5 }} />
-        );
-    };
+
 
     return (
         <View style={{ flex: 1, ...styles.globalMargin }}>
