@@ -9,6 +9,7 @@ import { TextInputScreen } from '../screens/TextInputScreen';
 import { PullToRefreshScreen } from '../screens/PullToRefreshScreen';
 import { CustomSectionListScreen } from '../screens/CustomSectionListScreen';
 import { ModalScreen } from '../screens/ModalScreen';
+import { InfiniteScrollScreen } from '../screens/InfiniteScrollScreen';
 
 
 //tipado de las rutas segun recomendacion de react docs
@@ -23,6 +24,7 @@ export type RootStackParams = {
     PullToRefreshScreen: undefined,
     CustomSectionListScreen: undefined,
     ModalScreen: undefined,
+    InfiniteScrollScreen: undefined,
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -47,6 +49,7 @@ export const Navigation = () => {
             <Stack.Screen name="PullToRefreshScreen" component={PullToRefreshScreen} />
             <Stack.Screen name="CustomSectionListScreen" component={CustomSectionListScreen} />
             <Stack.Screen name="ModalScreen" component={ModalScreen} />
+            <Stack.Screen name="InfiniteScrollScreen" component={InfiniteScrollScreen} />
         </Stack.Navigator>
     );
 };
