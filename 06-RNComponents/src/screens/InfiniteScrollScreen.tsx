@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HeaderTitle } from '../components/HeaderTitle';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, View, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 export const InfiniteScrollScreen = () => {
@@ -8,14 +8,22 @@ export const InfiniteScrollScreen = () => {
     const [numbers, setNumbers] = useState([0, 1, 2, 3, 4, 5]);
 
 
-    //esta funcion agrega mas numeros cuando llega al final del scroll
+    //esta funcion agrega mas numeros para renderizar cuando llega al final del scroll
     const loadMore = () => {
         const newArray: number[] = [];
         for (let i = 0; i < 5; i++) {
             newArray[i] = numbers.length + i;
         }
-        setNumbers([...numbers, ...newArray]);
+        //para darle tiempo a las imagenes que se carguen
+        setTimeout(() => setNumbers([...numbers, ...newArray]), 1000);
+
     };
+
+    const renderActivityIndicator = () => (
+        <View style={{ height: 100, width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+            <ActivityIndicator size={25} />
+        </View>
+    );
 
 
     return (
@@ -25,21 +33,21 @@ export const InfiniteScrollScreen = () => {
                 data={numbers}
                 keyExtractor={(item) => item.toString()}
                 renderItem={({ item }) => (
-                    <Text style={styles.textItem}>{item}</Text>
+                    <Image source={{ uri: `https://picsum.photos/id/${item}/500/400` }}
+                        style={{
+                            width: '100%',
+                            height: 200,
+                        }}
+                    />
                 )}
                 //esto indica que cuando falta la mitad para llegar al final, se dispara la funcion de onEndReached
                 onEndReachedThreshold={0.5}
                 //la funcion que se va a disparar cuando llegue al final del scroll segun el valor de onEndReachedThreshold
                 onEndReached={loadMore}
-
+                //este footer se muestra una y otra vez gracias a que va quedando ultimo cada vez que agrego mas imagenes
+                ListFooterComponent={renderActivityIndicator}
             />
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-    textItem: {
-        backgroundColor: 'green',
-        height: 150,
-    },
-});
