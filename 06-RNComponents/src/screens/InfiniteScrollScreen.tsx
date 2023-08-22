@@ -19,6 +19,11 @@ export const InfiniteScrollScreen = () => {
 
     };
 
+    const renderHeaderTitle = () =>
+        <View style={{ marginHorizontal: 20 }}>
+            <HeaderTitle title="Infinite Scroll" />
+        </View>;
+
     const renderActivityIndicator = () => (
         <View style={{ height: 100, width: '100%', alignItems: 'center', justifyContent: 'center' }}>
             <ActivityIndicator size={25} />
@@ -29,11 +34,12 @@ export const InfiniteScrollScreen = () => {
     return (
         <View>
             <FlatList
-                ListHeaderComponent={<HeaderTitle title="Infinite Scroll" />}
+                ListHeaderComponent={renderHeaderTitle}
                 data={numbers}
                 keyExtractor={(item) => item.toString()}
                 renderItem={({ item }) => (
-                    <Image source={{ uri: `https://picsum.photos/id/${item}/500/400` }}
+                    <Image
+                        source={{ uri: `https://picsum.photos/id/${item}/500/400` }}
                         style={{
                             width: '100%',
                             height: 200,
