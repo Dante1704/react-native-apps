@@ -1,5 +1,5 @@
-import React from 'react';
-import Carousel from 'react-native-snap-carousel';
+import React, { useState } from 'react';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { ImageSourcePropType, SafeAreaView, Text, View, Dimensions, Image, StyleSheet } from 'react-native';
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
@@ -30,6 +30,8 @@ const items: Slide[] = [
 
 export const SlidesScreen = () => {
 
+    const [activeSlide, setActiveSlide] = useState(0);
+
     const renderItem = (item: Slide) => (
         <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5, padding: 40, justifyContent: 'center' }}>
             <Image
@@ -55,6 +57,26 @@ export const SlidesScreen = () => {
                 sliderWidth={screenWidth}
                 itemWidth={screenWidth}
                 layout="default"
+                vertical={false} //sin esto no funciona
+                //cuando deslizo que capture el index y lo setee. Al rerenderizarse se actualiza.
+                onSnapToItem={(index) => { setActiveSlide(index); }}
+            />
+            <Pagination
+                dotsLength={items.length}
+                activeDotIndex={activeSlide} //se para en el dot correcto gracias a que se va actualizando con onSnapToItem.
+                containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
+                dotStyle={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 5,
+                    marginHorizontal: 8,
+                    backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                }}
+                /* inactiveDotStyle={{
+                    // Define styles for inactive dots here
+                }} */
+                inactiveDotOpacity={0.4}
+                inactiveDotScale={0.6}
             />
         </SafeAreaView>
     );
