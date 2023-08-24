@@ -5,6 +5,7 @@ import { ImageSourcePropType, SafeAreaView, Text, View, Dimensions, Image, Style
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { useAnimation } from '../hooks/useAnimation';
+import { styles } from '../theme/Theme';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -55,8 +56,8 @@ export const SlidesScreen = () => {
                     height: 400,
                     resizeMode: 'center',
                 }} />
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.subtitle}>{item.desc}</Text>
+            <Text style={stylesSlides.title}>{item.title}</Text>
+            <Text style={stylesSlides.subtitle}>{item.desc}</Text>
         </View>
     );
     return (
@@ -75,12 +76,12 @@ export const SlidesScreen = () => {
                 //cuando deslizo que capture el index y lo setee. Al rerenderizarse se actualiza.
                 onSnapToItem={(index) => { setActiveSlide(index); }}
             />
-            <View style={styles.paginationContainer}>
+            <View style={stylesSlides.paginationContainer}>
                 <Pagination
                     dotsLength={items.length}
                     activeDotIndex={activeSlide} //se para en el dot correcto gracias a que se va actualizando con onSnapToItem.
                     //containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
-                    dotStyle={styles.dotPagination}
+                    dotStyle={stylesSlides.dotPagination}
                     /* inactiveDotStyle={{
                         // Define styles for inactive dots here
                     }} */
@@ -90,7 +91,7 @@ export const SlidesScreen = () => {
                 {
                     <Animated.View style={{ opacity }}>
                         <Pressable
-                            style={{ ...styles.getIntoPressable }}
+                            style={{ ...styles.pressable }}
                             android_ripple={{ color: '#262561' }}
                             onPress={() => navigation.navigate('HomeScreen')}
                             disabled={!(activeSlide === items.length - 1)}
@@ -105,7 +106,7 @@ export const SlidesScreen = () => {
     );
 };
 
-const styles = StyleSheet.create({
+const stylesSlides = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: 'bold',
@@ -126,15 +127,5 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: 8,
         backgroundColor: '#5856d6',
-    },
-    getIntoPressable: {
-        width: 125,
-        height: 40,
-        marginRight: 15,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#5856D6',
-
     },
 });
