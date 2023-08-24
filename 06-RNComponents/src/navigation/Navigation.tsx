@@ -38,7 +38,7 @@ export const Navigation = () => {
             screenOptions={{
                 headerShown: false,
                 cardStyle: {
-                    backgroundColor: 'white',
+                    //backgroundColor: 'white', //aca estoy forzando blanco, si aplicara un darktheme no funcionaria
                 },
             }}>
             {/* //desde aca puedo estilar cada screen en general con "cardStyle", si el componente esta renderizado con fragments*/}

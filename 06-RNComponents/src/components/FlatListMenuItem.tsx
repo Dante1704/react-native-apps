@@ -3,13 +3,16 @@ import { StyleSheet, Text, View } from 'react-native';
 import { MenuItem } from '../interfaces/appInterfaces';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 interface Props {
     menuItem: MenuItem
 }
 
 export const FlatListMenuItem = ({ menuItem }: Props) => {
+
+    //cuando quiero aplicar los colores de mi custom en distintos componentes, lo traigo con este built-in hook
+    const { colors } = useTheme();
 
     const navigation = useNavigation<any>();
 
@@ -25,7 +28,7 @@ export const FlatListMenuItem = ({ menuItem }: Props) => {
                     size={23}
                 />
                 <Text
-                    style={styles.itemText}>{menuItem.name}
+                    style={{ ...styles.itemText, color: colors.text }}>{menuItem.name}
                 </Text>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Icon
