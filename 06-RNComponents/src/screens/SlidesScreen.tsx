@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { ImageSourcePropType, SafeAreaView, Text, View, Dimensions, Image, StyleSheet, Pressable } from 'react-native';
+import { ImageSourcePropType, SafeAreaView, Text, View, Dimensions, Image, StyleSheet, Pressable, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+import { useAnimation } from '../hooks/useAnimation';
 
-const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get('window');
 
 interface Slide {
     title: string;
@@ -32,6 +35,16 @@ const items: Slide[] = [
 export const SlidesScreen = () => {
 
     const [activeSlide, setActiveSlide] = useState(0);
+
+    const navigation = useNavigation<any>();
+
+    const { opacity, fadeIn } = useAnimation();
+
+    useEffect(() => {
+        if (activeSlide === items.length - 1) {
+            fadeIn();
+        }
+    }, [activeSlide]);
 
     const renderItem = (item: Slide) => (
         <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5, padding: 40, justifyContent: 'center' }}>
@@ -67,27 +80,26 @@ export const SlidesScreen = () => {
                     dotsLength={items.length}
                     activeDotIndex={activeSlide} //se para en el dot correcto gracias a que se va actualizando con onSnapToItem.
                     //containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
-                    dotStyle={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: 5,
-                        marginHorizontal: 8,
-                        backgroundColor: '#5856d6',
-                    }}
+                    dotStyle={styles.dotPagination}
                     /* inactiveDotStyle={{
                         // Define styles for inactive dots here
                     }} */
                     inactiveDotOpacity={0.4}
                     inactiveDotScale={0.6}
                 />
-                <Pressable
-                    style={styles.getIntoPressable}
-                    android_ripple={{ color: '#262561' }}
-                //</SafeAreaView>onPress={() => setModalVisible(!modalVisible)}
-                >
-                    <Icon name="chevron-forward-outline" color={'white'} size={25} />
-                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>Entrar</Text>
-                </Pressable>
+                {
+                    <Animated.View style={{ opacity }}>
+                        <Pressable
+                            style={{ ...styles.getIntoPressable }}
+                            android_ripple={{ color: '#262561' }}
+                            onPress={() => navigation.navigate('HomeScreen')}
+                            disabled={!(activeSlide === items.length - 1)}
+                        >
+                            <Icon name="chevron-forward-outline" color={'white'} size={25} />
+                            <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>Entrar</Text>
+                        </Pressable>
+                    </Animated.View>
+                }
             </View>
         </SafeAreaView>
     );
@@ -108,6 +120,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
+    dotPagination: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        marginHorizontal: 8,
+        backgroundColor: '#5856d6',
+    },
     getIntoPressable: {
         width: 125,
         height: 40,
@@ -116,5 +135,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#5856D6',
+
     },
 });
