@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MenuItem } from '../interfaces/appInterfaces';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { useNavigation /* useTheme  */ } from '@react-navigation/native';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 interface Props {
     menuItem: MenuItem
@@ -11,8 +12,10 @@ interface Props {
 
 export const FlatListMenuItem = ({ menuItem }: Props) => {
 
+    const { theme } = useContext(ThemeContext);
+
     //cuando quiero aplicar los colores de mi custom en distintos componentes, lo traigo con este built-in hook
-    const { colors } = useTheme();
+    //const { colors } = useTheme();
 
     const navigation = useNavigation<any>();
 
@@ -24,16 +27,16 @@ export const FlatListMenuItem = ({ menuItem }: Props) => {
             <View style={styles.container}>
                 <Icon
                     name={menuItem.icon}
-                    color={'#5856D6'}
+                    color={theme.colors.primary}
                     size={23}
                 />
                 <Text
-                    style={{ ...styles.itemText, color: colors.text }}>{menuItem.name}
+                    style={{ ...styles.itemText, color: theme.colors.text }}>{menuItem.name}
                 </Text>
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Icon
                         name={'chevron-forward-outline'}
-                        color={'#5856D6'}
+                        color={theme.colors.primary}
                         size={23}
                     />
                 </View>

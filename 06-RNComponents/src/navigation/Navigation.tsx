@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import { Animation101Screen } from '../screens/Animation101Screen';
@@ -13,6 +13,7 @@ import { InfiniteScrollScreen } from '../screens/InfiniteScrollScreen';
 import { SlidesScreen } from '../screens/SlidesScreen';
 import { ChangeThemeScreen } from '../screens/ChangeThemeScreen';
 import { NavigationContainer } from '@react-navigation/native';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 
 //tipado de las rutas segun recomendacion de react docs
@@ -35,9 +36,12 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const Navigation = () => {
+
+    const { theme } = useContext(ThemeContext);
+
     return (
         //Si envuelvo acá sigue siendo un envoltorio global, queda mas claro a la hora de utilizar un context exterior
-        <NavigationContainer /* theme={MyTheme} */>
+        <NavigationContainer theme={theme}>
             {/* //El stack navigator funciona como el DOM Tree y si estilo el navigator, es como estilar el html entero */}
             <Stack.Navigator
                 screenOptions={{

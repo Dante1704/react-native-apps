@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { HeaderTitle } from '../components/HeaderTitle';
-import { Text, View, Pressable } from 'react-native';
+import { Text, /* View, */ Pressable } from 'react-native';
 import { styles } from '../theme/Theme';
 import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 export const ChangeThemeScreen = () => {
-    const { setDarkTheme } = useContext(ThemeContext);
+    const { setDarkTheme, setLightTheme } = useContext(ThemeContext);
     return (
         <>
             <HeaderTitle title="Change Theme Screen" />
