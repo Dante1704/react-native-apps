@@ -12,6 +12,7 @@ import { ModalScreen } from '../screens/ModalScreen';
 import { InfiniteScrollScreen } from '../screens/InfiniteScrollScreen';
 import { SlidesScreen } from '../screens/SlidesScreen';
 import { ChangeThemeScreen } from '../screens/ChangeThemeScreen';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 //tipado de las rutas segun recomendacion de react docs
@@ -35,28 +36,31 @@ const Stack = createStackNavigator<RootStackParams>();
 
 export const Navigation = () => {
     return (
-        //El stack navigator funciona como el DOM Tree y si estilo el navigator, es como estilar el html entero
-        <Stack.Navigator
-            screenOptions={{
-                headerShown: false,
-                cardStyle: {
-                    //backgroundColor: 'white', //aca estoy forzando blanco, si aplicara un darktheme no funcionaria
-                },
-            }}>
-            {/* //desde aca puedo estilar cada screen en general con "cardStyle", si el componente esta renderizado con fragments*/}
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="Animation101Screen" component={Animation101Screen} />
-            <Stack.Screen name="Animation102Screen" component={Animation102Screen} />
-            <Stack.Screen name="SwitchScreen" component={SwitchScreen} />
-            <Stack.Screen name="AlertScreen" component={AlertScreen} />
-            <Stack.Screen name="TextInputScreen" component={TextInputScreen} />
-            <Stack.Screen name="PullToRefreshScreen" component={PullToRefreshScreen} />
-            <Stack.Screen name="CustomSectionListScreen" component={CustomSectionListScreen} />
-            <Stack.Screen name="ModalScreen" component={ModalScreen} />
-            <Stack.Screen name="InfiniteScrollScreen" component={InfiniteScrollScreen} />
-            <Stack.Screen name="SlidesScreen" component={SlidesScreen} />
-            <Stack.Screen name="ChangeThemeScreen" component={ChangeThemeScreen} />
-        </Stack.Navigator>
+        //Si envuelvo acá sigue siendo un envoltorio global, queda mas claro a la hora de utilizar un context exterior
+        <NavigationContainer /* theme={MyTheme} */>
+            {/* //El stack navigator funciona como el DOM Tree y si estilo el navigator, es como estilar el html entero */}
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false,
+                    cardStyle: {
+                        //backgroundColor: 'white', //aca estoy forzando blanco, si aplicara un darktheme no funcionaria
+                    },
+                }}>
+                {/* //desde aca puedo estilar cada screen en general con "cardStyle", si el componente esta renderizado con fragments*/}
+                <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                <Stack.Screen name="Animation101Screen" component={Animation101Screen} />
+                <Stack.Screen name="Animation102Screen" component={Animation102Screen} />
+                <Stack.Screen name="SwitchScreen" component={SwitchScreen} />
+                <Stack.Screen name="AlertScreen" component={AlertScreen} />
+                <Stack.Screen name="TextInputScreen" component={TextInputScreen} />
+                <Stack.Screen name="PullToRefreshScreen" component={PullToRefreshScreen} />
+                <Stack.Screen name="CustomSectionListScreen" component={CustomSectionListScreen} />
+                <Stack.Screen name="ModalScreen" component={ModalScreen} />
+                <Stack.Screen name="InfiniteScrollScreen" component={InfiniteScrollScreen} />
+                <Stack.Screen name="SlidesScreen" component={SlidesScreen} />
+                <Stack.Screen name="ChangeThemeScreen" component={ChangeThemeScreen} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 };
 
