@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { ImageSourcePropType, SafeAreaView, Text, View, Dimensions, Image, StyleSheet, Pressable, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { useAnimation } from '../hooks/useAnimation';
 import { styles } from '../theme/Theme';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -35,6 +36,8 @@ const items: Slide[] = [
 
 export const SlidesScreen = () => {
 
+    const { theme } = useContext(ThemeContext);
+
     const [activeSlide, setActiveSlide] = useState(0);
 
     const navigation = useNavigation<any>();
@@ -48,7 +51,7 @@ export const SlidesScreen = () => {
     }, [activeSlide]);
 
     const renderItem = (item: Slide) => (
-        <View style={{ flex: 1, backgroundColor: 'white', borderRadius: 5, padding: 40, justifyContent: 'center' }}>
+        <View style={{ flex: 1, backgroundColor: theme.colors.background, borderRadius: 5, padding: 40, justifyContent: 'center' }}>
             <Image
                 source={item.img}
                 style={{
@@ -56,8 +59,8 @@ export const SlidesScreen = () => {
                     height: 400,
                     resizeMode: 'center',
                 }} />
-            <Text style={stylesSlides.title}>{item.title}</Text>
-            <Text style={stylesSlides.subtitle}>{item.desc}</Text>
+            <Text style={{ ...stylesSlides.title, color: theme.colors.primary }}>{item.title}</Text>
+            <Text style={{ ...stylesSlides.subtitle, color: theme.colors.text }}>{item.desc}</Text>
         </View>
     );
     return (

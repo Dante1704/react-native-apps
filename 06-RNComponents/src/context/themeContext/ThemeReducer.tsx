@@ -17,7 +17,7 @@ export const lightTheme: ThemeState = {
         background: 'white',
         card: 'green',
         text: 'black',
-        border: 'orange',
+        border: 'white',
         notification: 'teal',
     },
 };
