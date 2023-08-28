@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { Image, View, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 export const InfiniteScrollScreen = () => {
+
+    const { theme } = useContext(ThemeContext);
 
     const [numbers, setNumbers] = useState([0, 1, 2, 3, 4, 5]);
 
@@ -26,7 +29,7 @@ export const InfiniteScrollScreen = () => {
 
     const renderActivityIndicator = () => (
         <View style={{ height: 100, width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-            <ActivityIndicator size={25} />
+            <ActivityIndicator size={25} color={theme.colors.primary} />
         </View>
     );
 

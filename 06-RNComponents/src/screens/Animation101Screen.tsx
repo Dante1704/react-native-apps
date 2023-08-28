@@ -16,18 +16,21 @@ export const Animation101Screen = () => {
                 transform: [{
                     translateY: position,
                 }],
-            }} />
-            <Button
-                title="fadeIn"
-                onPress={() => {
-                    fadeIn();
-                    startMovingPosition(-100);
-                }}
+            }}
             />
-            <Button
-                title="fadeOut"
-                onPress={fadeOut}
-            />
+            <View style={{ gap: 10 }}>
+                <Button
+                    title="fadeIn"
+                    onPress={() => {
+                        fadeIn();
+                        startMovingPosition(-100);
+                    }}
+                />
+                <Button
+                    title="fadeOut"
+                    onPress={fadeOut}
+                />
+            </View>
         </View>
     );
 };
@@ -42,5 +45,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#5856d6',
         width: 150,
         height: 150,
+        gap: 10,
     },
 });

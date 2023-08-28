@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/Theme';
 import { View, TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Button, Text } from 'react-native';
@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useForm } from '../hooks/useForm';
 import { InitialState } from '../interfaces/appInterfaces';
 import { CustomSwitch } from '../components/CustomSwitch';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 
 
@@ -19,6 +20,8 @@ const initialState: InitialState = {
 
 export const TextInputScreen = () => {
 
+    const { theme } = useContext(ThemeContext);
+
     const { form, handleChange } = useForm(initialState);
 
     return (
@@ -29,16 +32,16 @@ export const TextInputScreen = () => {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <>
                         <View style={{ ...styles.globalMargin, flex: 1 }}>
-                            <HeaderTitle title="TextInputScreen" />
+                            <HeaderTitle title="Text Input" />
                             <TextInput
-                                style={stylesScreen.inputStyle}
+                                style={{ ...stylesScreen.inputStyle, backgroundColor: theme.colors.border }}
                                 placeholder="Dante Kaddarian"
                                 autoCorrect={false} //evitamos que autocorrija lo que escribimos.
                                 autoCapitalize="words"
                                 onChangeText={(value) => handleChange(value, 'name')} //aca no esta por defecto el evento onChange
                             />
                             <TextInput
-                                style={stylesScreen.inputStyle}
+                                style={{ ...stylesScreen.inputStyle, backgroundColor: theme.colors.border }}
                                 placeholder="dante@dante.com"
                                 autoCorrect={false}
                                 onChangeText={(value) => handleChange(value, 'email')}
@@ -46,7 +49,7 @@ export const TextInputScreen = () => {
                             />
 
                             <View style={stylesScreen.switchRow}>
-                                <Text style={stylesScreen.switchText}>
+                                <Text style={{ ...stylesScreen.switchText, color: theme.colors.text }}>
                                     Suscribirse:
                                 </Text>
                                 <CustomSwitch isOn={form.isSubscribed} onChange={(value) => handleChange(value, 'isSubscribed')} />
@@ -56,7 +59,7 @@ export const TextInputScreen = () => {
                             <HeaderTitle title={JSON.stringify(form, null, 2)} />
 
                             <TextInput
-                                style={stylesScreen.inputStyle}
+                                style={{ ...stylesScreen.inputStyle, backgroundColor: theme.colors.border }}
                                 placeholder="+541134961991"
                                 onChangeText={(value) => handleChange(value, 'phone')}
                                 keyboardType="phone-pad" // phone-pad me muestra directamente numeros

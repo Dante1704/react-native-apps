@@ -4,7 +4,7 @@ import { styles } from '../theme/Theme';
 import { FlatListMenuItem } from '../components/FlatListMenuItem';
 import { menuItems } from '../data/menuItems';
 import { HeaderTitle } from '../components/HeaderTitle';
-import { itemSeparator } from '../components/ItemSeparator';
+import { ItemSeparator } from '../components/ItemSeparator';
 
 
 
@@ -29,7 +29,7 @@ export const HomeScreen = () => {
                 renderItem={({ item }) => <FlatListMenuItem menuItem={item} />}
                 keyExtractor={item => item.name}
                 ListHeaderComponent={renderListHeader} //un componente que funciona como header, puede tener un estilo diferente al resto de la flatList
-                ItemSeparatorComponent={itemSeparator} //algo para renderizar entre item e item para separar
+                ItemSeparatorComponent={ItemSeparator} //algo para renderizar entre item e item para separar
             />
         </View>
     );

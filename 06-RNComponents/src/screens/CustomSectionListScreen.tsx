@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { SectionList, Text, View } from 'react-native';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/Theme';
-import { itemSeparator } from '../components/ItemSeparator';
+import { ItemSeparator } from '../components/ItemSeparator';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 interface Casas {
     industria: string;
@@ -26,6 +27,9 @@ const casas: Casas[] = [
 
 export const CustomSectionListScreen = () => {
 
+    const { theme } = useContext(ThemeContext);
+
+    const renderListHeaderComponent = () => <HeaderTitle title="Section List" />;
     const listFooterComponent = () => <HeaderTitle title={'Total de industrias: ' + casas.length} />;
 
     return (
@@ -33,16 +37,16 @@ export const CustomSectionListScreen = () => {
             {/* <HeaderTitle title="Section List" /> */}
             <SectionList
                 sections={casas} //hay que pasarle un array de objetos donde cada objeto tiene el nombre de su seccion y sus elementos correspondientes
-                SectionSeparatorComponent={itemSeparator}
-                ListHeaderComponent={() => <HeaderTitle title="Section List" />} //el titulo de la lista con la ventaja de que tambien se scrollea, no queda sticky
+                SectionSeparatorComponent={ItemSeparator}
+                ListHeaderComponent={renderListHeaderComponent} //el titulo de la lista con la ventaja de que tambien se scrollea, no queda sticky
                 stickySectionHeadersEnabled={true} //Android: Makes section headers stick to the top of the screen until the next one pushes it off. Only enabled by default on iOS because that is the platform standard there.
                 renderSectionHeader={({ section: { industria } }) => (
-                    <View style={{ backgroundColor: 'white' }}>
+                    <View style={{ backgroundColor: theme.colors.background }}>
                         <HeaderTitle title={industria} />
                     </View>
                 )}//aca agarra el nombre de la seccion automaticamante y lo inserta antes que todos sus elementos
                 keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) => <Text>{item}</Text>}
+                renderItem={({ item }) => <Text style={{ color: theme.colors.text }}>{item}</Text>}
                 // ItemSeparatorComponent={itemSeparator}
                 renderSectionFooter={({ section }) => <HeaderTitle title={'Total: ' + section.data.length} />}
                 ListFooterComponent={listFooterComponent}

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Alert, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/Theme';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 export const ModalScreen = () => {
 
+    const { theme } = useContext(ThemeContext);
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -25,6 +27,7 @@ export const ModalScreen = () => {
                         <Text style={stylesModalScreen.modalText}>Hello World!</Text>
                         <Pressable
                             style={[stylesModalScreen.button, stylesModalScreen.buttonClose]}
+                            android_ripple={{ color: '#262561', radius: 44 }}
                             onPress={() => setModalVisible(!modalVisible)}>
                             <Text style={stylesModalScreen.textStyle}>Cerrar Modal</Text>
                         </Pressable>
@@ -32,11 +35,13 @@ export const ModalScreen = () => {
                 </View>
             </Modal>
             <Pressable
-                style={[stylesModalScreen.button, stylesModalScreen.buttonOpen]}
-                onPress={() => setModalVisible(true)}>
-                <Text style={stylesModalScreen.textStyle}>Mostrar Modal</Text>
+                style={{ ...stylesModalScreen.button, ...stylesModalScreen.buttonOpen, backgroundColor: theme.colors.primary }}
+                onPress={() => setModalVisible(true)}
+                android_ripple={{ color: '#262561' }}
+            >
+                <Text style={{ ...stylesModalScreen.textStyle }}>Mostrar Modal</Text>
             </Pressable>
-        </View>
+        </View >
     );
 };
 

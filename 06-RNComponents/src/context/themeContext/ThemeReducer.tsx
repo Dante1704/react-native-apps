@@ -13,7 +13,7 @@ export const lightTheme: ThemeState = {
     dividerColor: 'rgba(0,0,0,0.7)',
     dark: false,
     colors: {
-        primary: 'red',
+        primary: '#5856d6',
         background: 'white',
         card: 'green',
         text: 'black',
@@ -24,14 +24,14 @@ export const lightTheme: ThemeState = {
 
 export const darkTheme: ThemeState = {
     currentTheme: 'dark',
-    dividerColor: 'orange',
+    dividerColor: 'white',
     dark: true,
     colors: {
-        primary: 'red',
+        primary: '#8a89fb',
         background: 'rgba(0,0,0,0.7)',
         card: 'green',
         text: 'white',
-        border: 'orange',
+        border: 'white',
         notification: 'teal',
     },
 };
