@@ -1,11 +1,25 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { styles } from '../theme/Theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 export const HomeScreen = () => {
+    const { top } = useSafeAreaInsets();
+
     return (
-        <Icon name="rocket" size={30} color="#900" />
+        <>
+            <Image
+                source={require('../assets/pokebola.png')}
+                style={styles.pokebolaBG}
+            />
+            <Text style={{
+                ...styles.textDark,
+                ...styles.title,
+                top: top + 20,
+            }}>Pokedex</Text>
+        </>
     );
 };
 
