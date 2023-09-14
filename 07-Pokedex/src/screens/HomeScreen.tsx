@@ -5,15 +5,12 @@ import { styles } from '../theme/Theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated';
 import { FlatList } from 'react-native-gesture-handler';
+import { FadeInImage } from '../components/FadeInImage';
 
 
 export const HomeScreen = () => {
     const { top } = useSafeAreaInsets();
     const { isLoading, simplePokemonList, loadPokemons } = usePokemonPaginated();
-
-    const renderPokemons = ({ item, index }) => {
-
-    };
 
     return (
         <>
@@ -29,13 +26,14 @@ export const HomeScreen = () => {
             <FlatList
                 data={simplePokemonList}
                 keyExtractor={(pokemon) => pokemon.id}
-                renderItem={({ item }) => <Image
-                    source={{ uri: item.picture }}
-                    style={{
-                        width: 100,
-                        height: 100,
-                    }}
-                />}
+                renderItem={({ item }) =>
+                    <FadeInImage
+                        uri={item.picture}
+                        style={{
+                            width: 100,
+                            height: 100,
+                        }}
+                    />}
 
                 //infinite scroll
                 onEndReached={loadPokemons}
