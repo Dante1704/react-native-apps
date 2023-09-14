@@ -1,11 +1,11 @@
 import React from 'react';
-import { Text, Image, ActivityIndicator, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { View, Image, ActivityIndicator, Text } from 'react-native';
 import { styles } from '../theme/Theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated';
 import { FlatList } from 'react-native-gesture-handler';
 import { FadeInImage } from '../components/FadeInImage';
+import { PokemonCard } from '../components/PokemonCard';
 
 
 export const HomeScreen = () => {
@@ -18,23 +18,23 @@ export const HomeScreen = () => {
                 source={require('../assets/pokebola.png')}
                 style={styles.pokebolaBG}
             />
-            {/* <Text style={{
-                ...styles.textDark,
-                ...styles.title,
-                top: top + 20,
-            }}>Pokedex</Text> */}
             <FlatList
                 data={simplePokemonList}
                 keyExtractor={(pokemon) => pokemon.id}
+                numColumns={2} // Multiple columns
                 renderItem={({ item }) =>
-                    <FadeInImage
-                        uri={item.picture}
-                        style={{
-                            width: 100,
-                            height: 100,
-                        }}
-                    />}
-
+                    <PokemonCard pokemon={item} />
+                }
+                ListHeaderComponent={<Text
+                    style={{
+                        ...styles.title,
+                        ...styles.globalMargin,
+                        marginBottom: top + 20,
+                        ...styles.textDark,
+                        top: top + 20,
+                    }}>
+                    Pokedex
+                </Text>}
                 //infinite scroll
                 onEndReached={loadPokemons}
                 onEndReachedThreshold={0.3}
