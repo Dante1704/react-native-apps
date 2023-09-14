@@ -18,32 +18,35 @@ export const HomeScreen = () => {
                 source={require('../assets/pokebola.png')}
                 style={styles.pokebolaBG}
             />
-            <FlatList
-                data={simplePokemonList}
-                keyExtractor={(pokemon) => pokemon.id}
-                numColumns={2} // Multiple columns
-                renderItem={({ item }) =>
-                    <PokemonCard pokemon={item} />
-                }
-                ListHeaderComponent={<Text
-                    style={{
-                        ...styles.title,
-                        ...styles.globalMargin,
-                        marginBottom: top + 20,
-                        ...styles.textDark,
-                        top: top + 20,
-                    }}>
-                    Pokedex
-                </Text>}
-                //infinite scroll
-                onEndReached={loadPokemons}
-                onEndReachedThreshold={0.3}
-                ListFooterComponent={
-                    <View style={{ height: 100, width: '100%' }}>
-                        <ActivityIndicator size={25} color={'gray'} />
-                    </View>
-                }
-            />
+            <View style={styles.centerContent}>
+                <FlatList
+                    data={simplePokemonList}
+                    keyExtractor={(pokemon) => pokemon.id}
+                    numColumns={2} // Multiple columns
+                    renderItem={({ item }) =>
+                        <PokemonCard pokemon={item} />
+                    }
+                    ListHeaderComponent={<Text
+                        style={{
+                            ...styles.title,
+                            ...styles.globalMargin,
+                            marginBottom: top + 20,
+                            ...styles.textDark,
+                            top: top + 20,
+                            paddingBottom: 10,
+                        }}>
+                        Pokedex
+                    </Text>}
+                    //infinite scroll
+                    onEndReached={loadPokemons}
+                    onEndReachedThreshold={0.3}
+                    ListFooterComponent={
+                        <View style={{ height: 100, width: '100%' }}>
+                            <ActivityIndicator size={25} color={'gray'} />
+                        </View>
+                    }
+                />
+            </View>
         </>
     );
 };

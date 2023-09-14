@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
 import { SimplePokemon } from '../interfaces/pokemonInterfaces';
+import { FadeInImage } from './FadeInImage';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -24,6 +25,16 @@ export const PokemonCard = ({ pokemon }: Props) => {
                         {'\n#' + pokemon.id}
                     </Text>
                 </View>
+                <View style={styles.pokebolaContainer}>
+                    <Image
+                        source={require('../assets/pokebola-blanca.png')}
+                        style={styles.pokebola}
+                    />
+                </View>
+                <FadeInImage
+                    uri={pokemon.picture}
+                    style={styles.pokemonImage}
+                />
             </View>
         </TouchableOpacity>
     );
@@ -38,6 +49,15 @@ const styles = StyleSheet.create({
         width: 160,
         marginBottom: 25,
         borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 8,
     },
     name: {
         color: 'white',
@@ -46,12 +66,31 @@ const styles = StyleSheet.create({
         top: 20,
         left: 10,
     },
-});
-
-{/* <FadeInImage
-    uri={item.picture}
-    style={{
+    pokebola: {
         width: 100,
         height: 100,
-    }}
-/> */}
+        position: 'absolute',
+        right: -25,
+        bottom: -20,
+
+    },
+    pokemonImage: {
+        width: 120,
+        height: 120,
+        position: 'absolute',
+        right: -8,
+        bottom: -5,
+    },
+    pokebolaContainer: {
+        width: 100,
+        height: 100,
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        overflow: 'hidden',
+        opacity: 0.4,
+
+    },
+});
+
+
