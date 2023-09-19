@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
+import ImageColors from 'react-native-image-colors';
 import { SimplePokemon } from '../interfaces/pokemonInterfaces';
 import { FadeInImage } from './FadeInImage';
 
@@ -11,12 +13,31 @@ interface Props {
 }
 
 export const PokemonCard = ({ pokemon }: Props) => {
+
+    const [bgColor, setBgColor] = useState('grey'); //el color por def va a ser gray
+
+    useEffect(() => {
+        const { id } = pokemon;
+        const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+        ImageColors.getColors(url, {
+            fallback: 'grey', //vale la pena ponerlo por si viene undefined
+            key: url,
+        }).then(result => {
+            if (result.platform === 'android') {
+                return setBgColor(result.dominant ?? 'grey');
+            } else {
+                return setBgColor(result.background ?? 'grey');
+            }
+        });
+    }, []);
+
     return (
         <TouchableOpacity
             activeOpacity={0.8}
         >
             <View style={{
                 ...styles.cardContainer,
+                backgroundColor: bgColor,
                 width: windowWidth * 0.4,
             }}>
                 <View>
@@ -44,7 +65,7 @@ export const PokemonCard = ({ pokemon }: Props) => {
 const styles = StyleSheet.create({
     cardContainer: {
         marginHorizontal: 10,
-        backgroundColor: 'red',
+        backgroundColor: 'gray',
         height: 120,
         width: 160,
         marginBottom: 25,
