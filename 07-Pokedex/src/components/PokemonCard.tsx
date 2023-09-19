@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
 import ImageColors from 'react-native-image-colors';
 import { SimplePokemon } from '../interfaces/pokemonInterfaces';
@@ -16,19 +16,33 @@ export const PokemonCard = ({ pokemon }: Props) => {
 
     const [bgColor, setBgColor] = useState('grey'); //el color por def va a ser gray
 
+    //es necesario considerar si el componente esta montado
+    //porque el Flatlist hace un lazy loading
+    //y destruye los componentes asi como tambien los usa solo cuando es necesario
+    const isMounted = useRef(true);
+
     useEffect(() => {
-        const { id } = pokemon;
-        const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
-        ImageColors.getColors(url, {
-            fallback: 'grey', //vale la pena ponerlo por si viene undefined
-            key: url,
-        }).then(result => {
-            if (result.platform === 'android') {
-                return setBgColor(result.dominant ?? 'grey');
-            } else {
-                return setBgColor(result.background ?? 'grey');
-            }
-        });
+
+        //para no incurrir en memory leaks es necesario considerar actualizar esta card solo si esta montada
+        if (isMounted.current) {
+            const { id } = pokemon;
+            const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+            ImageColors.getColors(url, {
+                fallback: 'grey', //vale la pena ponerlo por si viene undefined
+                key: url,
+            }).then(result => {
+                if (result.platform === 'android') {
+                    return setBgColor(result.dominant ?? 'grey');
+                } else {
+                    return setBgColor(result.background ?? 'grey');
+                }
+            });
+        }
+
+        //al desmontarse el compomente guardo esta condicion para que no se dispare el useEffect
+        return () => {
+            isMounted.current = false;
+        };
     }, []);
 
     return (
