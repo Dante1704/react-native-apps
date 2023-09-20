@@ -7,7 +7,7 @@ import { FullPokemon } from '../interfaces/pokemonInterfaces';
 export const usePokemon = (id: string) => {
 
     const [isLoading, setisLoading] = useState(true);
-    const [pokemon, setpokemon] = useState<FullPokemon>();
+    const [pokemon, setpokemon] = useState<FullPokemon>({} as FullPokemon);
 
 
     useEffect(() => {
