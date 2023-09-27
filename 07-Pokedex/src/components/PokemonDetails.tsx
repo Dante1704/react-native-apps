@@ -84,7 +84,7 @@ export const PokemonDetails = ({ pokemon }: Props) => {
 
                 {/* Movements */}
                 <Text style={{ ...stylesPokemonDetails.title, ...styles.textDark }}>Movements</Text>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, ...stylesPokemonDetails.marginBottom10 }}>
                     {
                         pokemon.moves.map(({ move }) => {
                             return (
@@ -99,6 +99,30 @@ export const PokemonDetails = ({ pokemon }: Props) => {
                     }
                 </View>
 
+                {/* Stats */}
+                <Text style={{ ...stylesPokemonDetails.title, ...styles.textDark }}>Stats</Text>
+                <View >
+                    {
+                        pokemon.stats.map((stat) => {
+                            return (
+                                <View key={stat.stat.name} style={{ flexDirection: 'row', gap: 10 }} >
+                                    <Text
+
+                                        style={{ width: 150, ...styles.textDark, ...stylesPokemonDetails.regularText }}
+                                    >
+                                        {stat.stat.name}
+                                    </Text>
+                                    <Text
+                                        style={{ ...styles.textDark, ...stylesPokemonDetails.regularText, fontWeight: 'bold' }}
+                                    >
+                                        {stat.base_stat}
+                                    </Text>
+                                </View>
+                            );
+                        })
+                    }
+                </View>
+
             </View>
         </ScrollView>
     );
@@ -107,7 +131,7 @@ export const PokemonDetails = ({ pokemon }: Props) => {
 const stylesPokemonDetails = StyleSheet.create({
     container: {
         marginHorizontal: 20,
-        marginTop: 370, //sin este margin top las palabras quedarian tapadas porque este view esta por detras en realidad
+        marginTop: 370, //sin este margin top las palabras quedarían tapadas porque este view esta por detras en realidad
     },
     title: {
         fontSize: 22,
