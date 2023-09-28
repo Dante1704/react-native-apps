@@ -17,9 +17,6 @@ export const PokemonScreen = ({ navigation, route }: Props) => {
 
     const { isLoading, pokemon } = usePokemon(id);
 
-    console.log(pokemon);
-
-
     return (
         <View style={{ flex: 1 }}>
             {/* Header Container */}
