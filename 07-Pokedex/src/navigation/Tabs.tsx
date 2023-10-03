@@ -10,6 +10,7 @@ const Tab = createBottomTabNavigator();
 
 //Aca no hay que mostrar el HomeScreen, sino el Navigation que contiene a Home y Detail
 export const Tabs = () => {
+
     return (
         <Tab.Navigator
             sceneContainerStyle={{
@@ -53,7 +54,6 @@ export const Tabs = () => {
                         name="search-outline"
                     />),
                 }}
-
             />
         </Tab.Navigator>
     );
