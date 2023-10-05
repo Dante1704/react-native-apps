@@ -32,7 +32,7 @@ export const Tabs = () => {
             }}
         >
             <Tab.Screen
-                name="Home"
+                name="Poke List"
                 component={StackNavigator}
                 options={{
                     tabBarLabel: 'Poke List',

@@ -1,18 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PokemonPaginatedResponse, Result, SimplePokemon } from '../interfaces/pokemonInterfaces';
 
 
-
-export const usePokemonPaginated = () => {
+//el proposito de este hook es traerse todos los pokemons juntos y hacer la busqueda en base eso
+//la PokeAPI no ofrece un endpoint donde haga una busqueda en base a una expresion regular para por ejemplo
+//traer todos los pokemons que empiecen con p
+//asique hay que desarrollarla
+export const usePokemonSearch = () => {
 
     const [simplePokemonList, setSimplePokemonList] = useState<SimplePokemon[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const nextPageUrl = useRef('https://pokeapi.co/api/v2/pokemon/?limit=40');
+    const [isFetching, setIsFetching] = useState(true);
+
 
     const loadPokemons = async () => {
-        setIsLoading(true);
-        fetch(nextPageUrl.current)
+
+        fetch('https://pokeapi.co/api/v2/pokemon?limit=1200')
             .then((response) => {
                 // Verificar si la respuesta HTTP tiene éxito (código 200)
                 if (!response.ok) {
@@ -22,13 +25,12 @@ export const usePokemonPaginated = () => {
                 return response.json() as Promise<PokemonPaginatedResponse>; // Usamos 'as' para especificar el tipo
             })
             .then(data => {
-                nextPageUrl.current = data.next;
                 mapPokemonListToSimplePokemon(data.results);
             })
             .catch((error) => {
                 console.error('Error en la solicitud:', error);
             })
-            .finally(() => setIsLoading(false));
+            .finally(() => setIsFetching(false));
 
     };
 
@@ -43,8 +45,7 @@ export const usePokemonPaginated = () => {
             return { id, picture, name };
         }
         );
-
-        setSimplePokemonList([...simplePokemonList, ...newPokemonList]);
+        setSimplePokemonList(newPokemonList);
     };
 
     useEffect(() => {
@@ -52,6 +53,7 @@ export const usePokemonPaginated = () => {
     }, []);
 
     return {
-        isLoading, simplePokemonList, loadPokemons,
+        isFetching,
+        simplePokemonList,
     };
 };
