@@ -1,15 +1,24 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Platform } from 'react-native';
+import { StyleSheet, View, TextInput, Platform, StyleProp, ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+
+
+interface Props {
+    //uso un generico para indicar que puede ser cualquier propiedad de estilo que se le pueda dar a un View
+    style?: StyleProp<ViewStyle>
+}
 
 //hacer este componente aparte del search screen me permite
 //tener mas control sobre lo que va a escribir el usuario en el input
 //para hacer el debouncer
-
-export const SearchInput = () => {
+export const SearchInput = ({ style }: Props) => {
     return (
-        <View style={{ ...styles.container }}>
+        <View style={{
+            ...styles.container,
+            ...style as any,
+        }}
+        >
             <View style={{ ...styles.textBackground }} >
                 <TextInput
                     placeholder="Buscar Pokémon"
