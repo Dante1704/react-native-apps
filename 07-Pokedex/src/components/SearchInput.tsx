@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Platform, StyleProp, ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useDebouceValue } from '../hooks/useDebouceValue';
 
 
 
@@ -13,6 +14,18 @@ interface Props {
 //tener mas control sobre lo que va a escribir el usuario en el input
 //para hacer el debouncer
 export const SearchInput = ({ style }: Props) => {
+
+
+    const [textValue, setTextValue] = useState('');
+
+    const { debouncedValue } = useDebouceValue({ value: textValue });
+
+    //solo cuando cambia el debouncedValue voy a ejecutar este useEffect
+    useEffect(() => {
+        console.log(debouncedValue);
+    }, [debouncedValue]);
+
+
     return (
         <View style={{
             ...styles.container,
@@ -25,6 +38,8 @@ export const SearchInput = ({ style }: Props) => {
                     style={{ ...styles.textInput }}
                     autoCapitalize="none"
                     autoCorrect={false}
+                    value={textValue}
+                    onChangeText={setTextValue} //Siempre use el onChange solo, este no lo conocia
                 />
                 <Icon
                     name="search-outline"
