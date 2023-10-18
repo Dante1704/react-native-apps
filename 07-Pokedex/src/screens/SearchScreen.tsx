@@ -20,10 +20,12 @@ export const SearchScreen = () => {
     const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
 
     useEffect(() => {
-        if (term.length === 0) {
-            return setPokemonFiltered([]);
+        if (term.length === 0) { return setPokemonFiltered([]); }
+        if (isNaN(Number(term))) {
+            return setPokemonFiltered(simplePokemonList.filter(pokemon => pokemon.name.toLowerCase().includes(term.toLowerCase())));
         }
-        setPokemonFiltered(simplePokemonList.filter(pokemon => pokemon.name.toLowerCase().includes(term.toLowerCase())));
+        return setPokemonFiltered(simplePokemonList.filter(pokemon => pokemon.id === term));
+
     }, [term]);
 
     if (isFetching) {
