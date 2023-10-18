@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Platform, StyleProp, ViewStyle } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,6 +7,7 @@ import { useDebouceValue } from '../hooks/useDebouceValue';
 
 
 interface Props {
+    onDebounce: (value: string) => void
     //uso un generico para indicar que puede ser cualquier propiedad de estilo que se le pueda dar a un View
     style?: StyleProp<ViewStyle>
 }
@@ -13,7 +15,7 @@ interface Props {
 //hacer este componente aparte del search screen me permite
 //tener mas control sobre lo que va a escribir el usuario en el input
 //para hacer el debouncer
-export const SearchInput = ({ style }: Props) => {
+export const SearchInput = ({ style, onDebounce }: Props) => {
 
 
     const [textValue, setTextValue] = useState('');
@@ -22,7 +24,7 @@ export const SearchInput = ({ style }: Props) => {
 
     //solo cuando cambia el debouncedValue voy a ejecutar este useEffect
     useEffect(() => {
-        console.log(debouncedValue);
+        onDebounce(debouncedValue);
     }, [debouncedValue]);
 
 

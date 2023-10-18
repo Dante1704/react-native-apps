@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { FlatList, Text, View, Dimensions, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SearchInput } from '../components/SearchInput';
@@ -6,6 +7,7 @@ import { usePokemonSearch } from '../hooks/usePokemonSearch';
 import { PokemonCard } from '../components/PokemonCard';
 import { styles } from '../theme/Theme';
 import { Loading } from '../components/Loading';
+import { SimplePokemon } from '../interfaces/pokemonInterfaces';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -14,6 +16,15 @@ export const SearchScreen = () => {
 
     const { top } = useSafeAreaInsets();
     const { isFetching, simplePokemonList } = usePokemonSearch();
+    const [term, setterm] = useState('');
+    const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
+
+    useEffect(() => {
+        if (term.length === 0) {
+            return setPokemonFiltered([]);
+        }
+        setPokemonFiltered(simplePokemonList.filter(pokemon => pokemon.name.toLowerCase().includes(term.toLowerCase())));
+    }, [term]);
 
     if (isFetching) {
         return (
@@ -29,6 +40,7 @@ export const SearchScreen = () => {
             marginHorizontal: 20,
         }}>
             <SearchInput
+                onDebounce={(value) => setterm(value)}
                 style={{
                     position: 'absolute',
                     zIndex: 999,
@@ -38,7 +50,7 @@ export const SearchScreen = () => {
                 }}
             />
             <FlatList
-                data={simplePokemonList}
+                data={pokemonFiltered}
                 keyExtractor={(pokemon) => pokemon.id}
                 numColumns={2} // Multiple columns
                 renderItem={({ item }) =>
@@ -54,7 +66,7 @@ export const SearchScreen = () => {
                         marginBottom: top + 20,
                         ...styles.textDark,
                     }}>
-                    Pokedex
+                    {term}
                 </Text>}
             />
         </View>
