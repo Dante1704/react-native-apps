@@ -4,8 +4,6 @@ import { Text, View, TouchableOpacity, StyleSheet, Dimensions, Image } from 'rea
 import ImageColors from 'react-native-image-colors';
 import { SimplePokemon } from '../interfaces/pokemonInterfaces';
 import { FadeInImage } from './FadeInImage';
-import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParams } from '../navigation/Navigation';
 import { useNavigation } from '@react-navigation/native';
 
 

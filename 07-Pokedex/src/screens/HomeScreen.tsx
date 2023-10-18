@@ -4,13 +4,12 @@ import { styles } from '../theme/Theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated';
 import { FlatList } from 'react-native-gesture-handler';
-import { FadeInImage } from '../components/FadeInImage';
 import { PokemonCard } from '../components/PokemonCard';
 
 
 export const HomeScreen = () => {
     const { top } = useSafeAreaInsets();
-    const { isLoading, simplePokemonList, loadPokemons } = usePokemonPaginated();
+    const { simplePokemonList, loadPokemons } = usePokemonPaginated();
 
     return (
         <>
