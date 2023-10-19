@@ -47,22 +47,26 @@ export const PokemonDetails = ({ pokemon }: Props) => {
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                 >
-                    <FadeInImage
-                        style={{ ...stylesPokemonDetails.basicSprite }}
-                        uri={pokemon.sprites.front_default}
-                    />
-                    <FadeInImage
-                        style={{ ...stylesPokemonDetails.basicSprite }}
-                        uri={pokemon.sprites.back_default}
-                    />
-                    <FadeInImage
-                        style={{ ...stylesPokemonDetails.basicSprite }}
-                        uri={pokemon.sprites.front_shiny}
-                    />
-                    <FadeInImage
-                        style={{ ...stylesPokemonDetails.basicSprite }}
-                        uri={pokemon.sprites.back_shiny}
-                    />
+                    {pokemon.sprites.front_default &&
+                        <FadeInImage
+                            style={{ ...stylesPokemonDetails.basicSprite }}
+                            uri={pokemon.sprites.front_default}
+                        />}
+                    {pokemon.sprites.back_default &&
+                        <FadeInImage
+                            style={{ ...stylesPokemonDetails.basicSprite }}
+                            uri={pokemon.sprites.back_default}
+                        />}
+                    {pokemon.sprites.front_shiny &&
+                        <FadeInImage
+                            style={{ ...stylesPokemonDetails.basicSprite }}
+                            uri={pokemon.sprites.front_shiny}
+                        />}
+                    {pokemon.sprites.back_shiny &&
+                        <FadeInImage
+                            style={{ ...stylesPokemonDetails.basicSprite }}
+                            uri={pokemon.sprites.back_shiny}
+                        />}
                 </ScrollView>
 
                 {/* Skills */}
@@ -72,7 +76,7 @@ export const PokemonDetails = ({ pokemon }: Props) => {
                         pokemon.abilities.map(({ ability }) => {
                             return (
                                 <Text
-                                    key={ability.name}
+                                    key={ability.name + Math.random()}
                                     style={{ ...styles.textDark, ...stylesPokemonDetails.regularText }}
                                 >
                                     {ability.name}
@@ -101,7 +105,10 @@ export const PokemonDetails = ({ pokemon }: Props) => {
 
                 {/* Stats */}
                 <Text style={{ ...stylesPokemonDetails.title, ...styles.textDark }}>Stats</Text>
-                <View >
+                <View style={{
+                    flex: 1,
+                    paddingBottom: 55,
+                }} >
                     {
                         pokemon.stats.map((stat) => {
                             return (

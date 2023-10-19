@@ -18,7 +18,9 @@ export const PokemonScreen = ({ navigation, route }: Props) => {
     const { isLoading, pokemon } = usePokemon(id);
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{
+            flex: 1,
+        }}>
             {/* Header Container */}
             <View style={{
                 ...stylesPokemonScreen.headerContainer,
