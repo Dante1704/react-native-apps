@@ -1,19 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { NavigationContainer } from '@react-navigation/native';
+import { MainStackNavigator } from './src/navigator/MainStackNavigator';
 
-import { Text, View } from 'react-native';
+
+
 
 const App = () => {
   return (
 
-    <Icon name="rocket" size={30} color="#900" />
+    <NavigationContainer>
+      <MainStackNavigator />
+    </NavigationContainer>
 
   );
 };
