@@ -7,7 +7,6 @@ const Stack = createStackNavigator();
 
 export const MainStackNavigator = () => {
     return (
-
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
