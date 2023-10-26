@@ -13,8 +13,8 @@ export const MainStackNavigator = () => {
                 cardStyle: { backgroundColor: 'white' },
             }}
         >
-            <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Permissions" component={Permissions} />
+            <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
     );
 };
