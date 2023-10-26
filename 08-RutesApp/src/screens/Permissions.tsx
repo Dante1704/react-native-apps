@@ -19,7 +19,7 @@ export const Permissions = () => {
 
     return (
         <View style={{
-            ...styles.container,
+            ...styles_permissions.container,
         }}>
             <Text>Permissions Screen</Text>
 
@@ -31,7 +31,7 @@ export const Permissions = () => {
     );
 };
 
-const styles = StyleSheet.create({
+const styles_permissions = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
