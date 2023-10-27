@@ -1,21 +1,13 @@
-import React from 'react';
-import { Button, Platform, StyleSheet, Text, View } from 'react-native';
-import { PERMISSIONS, PermissionStatus, check, request } from 'react-native-permissions';
+import React, { useContext } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+
+import { PermissionsContext } from '../context/Permissions';
 
 export const Permissions = () => {
 
-    const checkLocationPermission = async () => {
+    const { permissions, askLocationPermission } = useContext(PermissionsContext);
 
-        let permissionsStatus: PermissionStatus;
 
-        if (Platform.OS === 'ios') {
-            permissionsStatus = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE); ////solicito permiso de location iOS
-            return permissionsStatus;
-        }
-        permissionsStatus = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION); //solicito permiso de location android
-
-        return permissionsStatus;
-    };
 
     return (
         <View style={{
@@ -25,8 +17,10 @@ export const Permissions = () => {
 
             <Button
                 title="Permiso"
-                onPress={() => { checkLocationPermission(); }}
+                onPress={askLocationPermission}
             />
+            <Text>  {JSON.stringify(permissions, null, 5)} </Text>
+
         </View>
     );
 };
