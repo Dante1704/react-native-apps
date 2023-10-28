@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { AppState, Platform } from 'react-native';
-import { PERMISSIONS, PermissionStatus, check, request } from 'react-native-permissions';
+import { PERMISSIONS, PermissionStatus, check, request, openSettings } from 'react-native-permissions';
 
 export interface PermissionsState {
     locationStatus: PermissionStatus
@@ -12,6 +12,8 @@ export const permissionsInitState: PermissionsState = {
     locationStatus: 'unavailable',
 };
 
+
+
 type PermissionsContextProps = {
     permissions: PermissionsState;
     askLocationPermission: () => void,
@@ -19,6 +21,11 @@ type PermissionsContextProps = {
 }
 
 export const PermissionsContext = createContext({} as PermissionsContextProps); //todo: qué exporta
+
+
+
+
+
 
 export const PermissionsProvider = ({ children }: any) => {
 
@@ -42,16 +49,21 @@ export const PermissionsProvider = ({ children }: any) => {
         let permissionsStatus: PermissionStatus;
 
         if (Platform.OS === 'ios') {
-            permissionsStatus = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE); ////solicito permiso de location iOS
-            return permissionsStatus;
+            //solicito permiso de location iOS
+            permissionsStatus = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+        } else {
+            permissionsStatus = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        } //solicito permiso de location android
+        if (permissions.locationStatus === 'blocked' || permissions.locationStatus === 'denied') {
+            //como estoy bloqueado la unica manera de cambiarlo va a ser desde los settings de la app manualmente
+            openSettings();
         }
-        permissionsStatus = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION); //solicito permiso de location android
 
         setPermissions({ ...permissions, locationStatus: permissionsStatus });
-        return permissionsStatus;
     };
 
-    //cada vez que la persona se va de la aplicacion y despues vuelve, tengo que usar esta funcion.
+    //cada vez que la persona se va de la aplicacion y despues vuelve,
+    //tengo que usar esta funcion.
     //Porque pudo haber revocado los permisos
     const checkLocationPermission = async () => {
         let permissionsStatus: PermissionStatus;
