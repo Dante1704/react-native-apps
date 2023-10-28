@@ -24,11 +24,13 @@ export const PermissionsProvider = ({ children }: any) => {
 
     const [permissions, setPermissions] = useState(permissionsInitState);
 
-    //este useEffect se va a disparar solamente cuando se construye el provider. La app se costruye y destruye rapidamente cuando salgo de ella y vuelvo a entrar
+    //este useEffect se va a disparar solamente cuando se construye el provider. La app se costruye y destruye rapidamente
+    //cuando la cierro y vuelvo a entrar
     //si yo por ejemplo salgo de mi app y por afuera de ella le cambio el permiso,
     //al volver a entrar ya registra ese cambio que hice por fuera
 
     useEffect(() => {
+        //AppState de React Native me devuelve el estado de la aplicacion. Y en base a eso puedo hacer cosas.
         AppState.addEventListener('change', state => {
             if (state !== 'active') { return; }
             checkLocationPermission();
