@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { PermissionsContext } from '../context/Permissions';
+import { CustomButton } from '../components/CustomButton';
 
 export const Permissions = () => {
 
@@ -13,9 +14,9 @@ export const Permissions = () => {
         <View style={{
             ...styles_permissions.container,
         }}>
-            <Text>Permissions Screen</Text>
+            <Text style={styles_permissions.informationGPS}>Es necesario el uso del GPS</Text>
 
-            <Button
+            <CustomButton
                 title="Permiso"
                 onPress={askLocationPermission}
             />
@@ -30,5 +31,11 @@ const styles_permissions = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    informationGPS: {
+        width: 250,
+        fontSize: 18,
+        textAlign: 'center',
+        marginBottom: 20,
     },
 });
