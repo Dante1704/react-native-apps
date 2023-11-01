@@ -17,10 +17,12 @@ export const Map = () => {
                     longitudeDelta: 0.0121,
                 }}
             >
+                {/* Marker para mostrar lugares especiales dentro del mapa */}
                 <Marker
                     coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
                     title="Marker 1"
                     description="La primera marca de mapa implementada"
+                    image={require('../assets/custommarker-220620-125219.png')}
                 />
             </MapView>
         </>
