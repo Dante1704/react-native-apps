@@ -37,6 +37,7 @@ export const PermissionsProvider = ({ children }: any) => {
     //al volver a entrar ya registra ese cambio que hice por fuera
 
     useEffect(() => {
+        checkLocationPermission();
         //AppState de React Native me devuelve el estado de la aplicacion. Y en base a eso puedo hacer cosas.
         AppState.addEventListener('change', state => {
             if (state !== 'active') { return; }
