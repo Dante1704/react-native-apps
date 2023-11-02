@@ -1,14 +1,27 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
+
 
 
 //componente reutilizable de mapa de google
 export const Map = () => {
+
+    //obtener la coordenada actual del usuario
+    //Geolocation.getCurrentPosition(success_cb, error_cb, options);
+    Geolocation.getCurrentPosition(
+        info => console.log(info),
+        err => console.log(err),
+        {
+            //distanceFilter: cuando se mueva, a que distancia me notifica cuando se mueve
+            enableHighAccuracy: true,
+        });
+
     return (
         <>
             <MapView
-
+                showsUserLocation
                 style={styles.map}
                 region={{
                     latitude: 37.78825,
