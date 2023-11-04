@@ -36,12 +36,12 @@ export const Map = () => {
                         />
                     </MapView>
                     <Fab
-                        iconName="star-outline"
+                        iconName="compass-outline"
                         onPress={() => console.log('FAB')}
                         style={{
                             position: 'absolute',
                             bottom: 20,
-                            right: 2,
+                            right: 20,
                         }}
                     />
                 </> :

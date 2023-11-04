@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Geolocation from '@react-native-community/geolocation';
 import { Location } from '../interfaces/appInterfaces';
+import { getCurrentLocation } from '../helpers/getCurrentLocation';
 
 export const useGeolocation = () => {
 
@@ -13,28 +13,23 @@ export const useGeolocation = () => {
     });
 
     useEffect(() => {
-        //obtener la coordenada actual del usuario
-        //Geolocation.getCurrentPosition(success_cb, error_cb, options);
-        Geolocation.getCurrentPosition(
-            ({ coords }) => {
+        getCurrentLocation()
+            .then((location) => {
                 setInitialPosition({
-                    latitude: coords.latitude,
-                    logitude: coords.longitude,
+                    latitude: location.latitude,
+                    logitude: location.logitude,
                 });
-
                 setHasLocation(true);
-            },
-            err => {
+            })
+            .catch(err => {
                 console.log(err);
-            },
-            {
-                //distanceFilter: cuando se mueva, a que distancia me notifica cuando se mueve
-                enableHighAccuracy: true,
-            });
+            },);
     }, []);
+
 
     return ({
         hasLocation,
         initialPosition,
+        getCurrentLocation,
     });
 };
