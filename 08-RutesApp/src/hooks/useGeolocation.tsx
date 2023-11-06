@@ -9,7 +9,7 @@ export const useGeolocation = () => {
 
     const [initialPosition, setInitialPosition] = useState<Location>({
         latitude: 0,
-        logitude: 0,
+        longitude: 0,
     });
 
     useEffect(() => {
@@ -17,7 +17,7 @@ export const useGeolocation = () => {
             .then((location) => {
                 setInitialPosition({
                     latitude: location.latitude,
-                    logitude: location.logitude,
+                    longitude: location.longitude,
                 });
                 setHasLocation(true);
             })

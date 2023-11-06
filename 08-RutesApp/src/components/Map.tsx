@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { Loading } from '../screens/Loading';
 import { Fab } from './Fab';
+import { getCurrentLocation } from '../helpers/getCurrentLocation';
 
 
 
@@ -13,16 +14,31 @@ export const Map = () => {
 
     const { hasLocation, initialPosition } = useGeolocation();
 
+    const mapViewRef = useRef<MapView>();
+
+    const centerPosition = async () => {
+        const { latitude, longitude } = await getCurrentLocation();
+        mapViewRef.current?.animateCamera({
+            center: {
+                latitude,
+                longitude,
+            },
+        });
+    };
+
+
     return (
         <>
             {hasLocation ?
                 <>
                     <MapView
+                        //si bien puede ser null, yo le estoy especificando con el renderizado condicional, que renderice el mapa cuando hay location por eso puedo forzar acá
+                        ref={(el) => { mapViewRef.current = el!; }}
                         showsUserLocation
                         style={styles.map}
                         region={{
                             latitude: initialPosition?.latitude,
-                            longitude: initialPosition?.logitude,
+                            longitude: initialPosition?.longitude,
                             latitudeDelta: 0.015,
                             longitudeDelta: 0.0121,
                         }}
@@ -37,7 +53,7 @@ export const Map = () => {
                     </MapView>
                     <Fab
                         iconName="compass-outline"
-                        onPress={() => console.log('FAB')}
+                        onPress={centerPosition}
                         style={{
                             position: 'absolute',
                             bottom: 20,

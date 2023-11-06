@@ -9,7 +9,7 @@ export const getCurrentLocation = (): Promise<Location> => {
             ({ coords }) => {
                 resolve({
                     latitude: coords.latitude,
-                    logitude: coords.longitude,
+                    longitude: coords.longitude,
                 });
             },
             err => {
