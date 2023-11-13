@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Location } from '../interfaces/appInterfaces';
 import { getCurrentLocation } from '../helpers/getCurrentLocation';
 import Geolocation from '@react-native-community/geolocation';
@@ -31,21 +31,31 @@ export const useGeolocation = () => {
             });
     }, []);
 
+    const watchId = useRef<number>();
+
     //funcion para seguir al usuario mientras se mueve
-    //
     const followUserLocation = () => {
-        //invokes the success callback whenever the location changes.
-        Geolocation.watchPosition(
-            ({ coords: { latitude, longitude } }) => {
-                setUserLocation({ latitude, longitude });
-            },
-            (err) => {
-                console.log(err);
-            },
-            {
-                enableHighAccuracy: true,
-                distanceFilter: 10, //cada vez que pasen 10 metros me notifica
-            });
+        watchId.current =
+            Geolocation  //invokes the success callback whenever the location changes.
+                .watchPosition(
+                    ({ coords: { latitude, longitude } }) => {
+                        setUserLocation({ latitude, longitude });
+                    },
+                    (err) => {
+                        console.log(err);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        distanceFilter: 10, //cada vez que pasen 10 metros me notifica
+                    }
+                );
+    };
+
+    //si muevo el mapa para ver otra cosa, no quiero que automaticamente vuelva a mi location
+    const stopFollowUserLocation = () => {
+        if (watchId.current) {
+            Geolocation.clearWatch(watchId.current);
+        }
     };
 
 
@@ -54,5 +64,6 @@ export const useGeolocation = () => {
         initialPosition,
         followUserLocation,
         userLocation,
+        stopFollowUserLocation,
     });
 };

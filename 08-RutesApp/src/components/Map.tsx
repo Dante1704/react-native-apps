@@ -12,17 +12,22 @@ import { getCurrentLocation } from '../helpers/getCurrentLocation';
 //componente reutilizable de mapa de google
 export const Map = () => {
 
-    const { hasLocation,
+    const {
+        hasLocation,
         initialPosition,
         userLocation,
-        followUserLocation } = useGeolocation();
+        followUserLocation,
+        stopFollowUserLocation,
+    } = useGeolocation();
 
     const mapViewRef = useRef<MapView>();
 
-
+    //flag para indicar si tengo que seguir o no al usuario
+    const followingFlagRef = useRef<boolean>(true);
 
     const centerPosition = async () => {
         const { latitude, longitude } = await getCurrentLocation();
+        followingFlagRef.current = true;
         mapViewRef.current?.animateCamera({
             center: {
                 latitude,
@@ -35,12 +40,15 @@ export const Map = () => {
     useEffect(() => {
         followUserLocation();
         return () => {
-            //TODO
+            stopFollowUserLocation();
         };
     }, []);
 
     //cada vez que cambia la posicion del usuario, la camara se vuelve a centrar
+    //pero solo si el flag indica que hay que centrarlo
     useEffect(() => {
+        if (!followingFlagRef.current) { return; }
+
         const { latitude, longitude } = userLocation;
         mapViewRef.current?.animateCamera({
             center: {
@@ -66,6 +74,8 @@ export const Map = () => {
                                 latitudeDelta: 0.015,
                                 longitudeDelta: 0.0121,
                             }}
+                            //apenas draggeo el map, le indico que deje de seguir al usuario
+                            onTouchStart={() => { followingFlagRef.current = false; }}
                         >
                             {/* Marker para mostrar lugares especiales dentro del mapa */}
                             <Marker
@@ -74,7 +84,7 @@ export const Map = () => {
                                 description="La primera marca de mapa implementada"
                                 image={require('../assets/custommarker-220620-125219.png')}
                             />
-                        </MapView>
+                        </MapView >
                         <Fab
                             iconName="compass-outline"
                             onPress={centerPosition}

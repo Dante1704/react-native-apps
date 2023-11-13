@@ -1,5 +1,7 @@
 import Geolocation from '@react-native-community/geolocation';
 import { Location } from '../interfaces/appInterfaces';
+import useState from 'react';
+
 
 //funcion para seguir al usuario mientras se mueve
 export const watchUserPosition = (): Promise<Location> => {
