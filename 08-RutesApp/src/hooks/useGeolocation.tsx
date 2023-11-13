@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+
 import { useEffect, useRef, useState } from 'react';
 import { Location } from '../interfaces/appInterfaces';
 import { getCurrentLocation } from '../helpers/getCurrentLocation';
@@ -19,12 +21,16 @@ export const useGeolocation = () => {
         longitude: 0,
     });
 
+    //este estado se usa para guardar todas las posiciones en las que el usuario estuvo.
+    const [routes, setRoutes] = useState<Location[]>([]);
+
     useEffect(() => {
         getCurrentLocation()
             .then((location) => {
                 setInitialPosition(location);
                 setUserLocation(location);
                 setHasLocation(true);
+                setRoutes(routes => [...routes, location]);
             })
             .catch(err => {
                 console.log(err);
@@ -40,6 +46,7 @@ export const useGeolocation = () => {
                 .watchPosition(
                     ({ coords: { latitude, longitude } }) => {
                         setUserLocation({ latitude, longitude });
+                        setRoutes(routes => [...routes, { latitude, longitude }]);
                     },
                     (err) => {
                         console.log(err);
@@ -65,5 +72,6 @@ export const useGeolocation = () => {
         followUserLocation,
         userLocation,
         stopFollowUserLocation,
+        routes,
     });
 };

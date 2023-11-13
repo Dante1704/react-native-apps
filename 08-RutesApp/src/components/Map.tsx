@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Polyline } from 'react-native-maps';
 import { useGeolocation } from '../hooks/useGeolocation';
 import { Loading } from '../screens/Loading';
 import { Fab } from './Fab';
@@ -18,6 +18,7 @@ export const Map = () => {
         userLocation,
         followUserLocation,
         stopFollowUserLocation,
+        routes,
     } = useGeolocation();
 
     const mapViewRef = useRef<MapView>();
@@ -77,6 +78,12 @@ export const Map = () => {
                             //apenas draggeo el map, le indico que deje de seguir al usuario
                             onTouchStart={() => { followingFlagRef.current = false; }}
                         >
+                            {/* con este componente, al pasarle el arreglo de las locations del usuario, armo su recorrido */}
+                            <Polyline
+                                coordinates={routes}
+                                strokeColor="black"
+                                strokeWidth={3}
+                            />
                             {/* Marker para mostrar lugares especiales dentro del mapa */}
                             <Marker
                                 coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
